@@ -20,7 +20,11 @@ public class Game {
     }
 
     public GameState getGameState(int index) {
-        return gameStates.get(index);
+        try {
+            return gameStates.get(index);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public int getGameStateCount() {

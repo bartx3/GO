@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58f0a5fe-30c0-4d5f-a22f-3b2f74bc08b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../client/src/main/java/go/client/Gamestate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/go/ClientHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/go/DBFacade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/go/SimpleDBFacade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/go/game/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/go/game/GameState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/DBFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/DBFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/SimpleDBFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/SimpleDBFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/game/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +73,7 @@
       <workItem from="1702996553794" duration="47000" />
       <workItem from="1702996615514" duration="48000" />
       <workItem from="1702999130671" duration="1840000" />
-      <workItem from="1703001438647" duration="2642000" />
+      <workItem from="1703001438647" duration="3846000" />
     </task>
     <servers />
   </component>

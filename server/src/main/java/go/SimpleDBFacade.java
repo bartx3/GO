@@ -1,11 +1,10 @@
 package go;
 
 import go.game.Game;
-import go.game.GameState;
 
 import java.util.*;
 
-public class SimpleDBFacade implements DBFacade{
+public class SimpleDBFacade implements DBFacade {
     TreeMap<String, String> users = new TreeMap<>();
     TreeMap<Long, Game> games = new TreeMap<>();
 
@@ -22,6 +21,14 @@ public class SimpleDBFacade implements DBFacade{
         }
     }
 
+    @Override
+    public boolean login(String username, String password) {
+        if (!users.containsKey(username)) {
+            return false;
+        }
+        return checkPassword(username, password);
+    }
+
     public boolean saveGame(Game game) {
         try {
             games.put(game.id, game);
@@ -31,21 +38,29 @@ public class SimpleDBFacade implements DBFacade{
         }
     }
 
-    public Game loadGame() {
-        return null;
+    @Override
+    public Game loadGame(long id) {
+        try {
+            return games.get(id);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    public void saveGamestate(Game gamestate) {
+    @Override
+    public ArrayList<Long> getGameIds() {
+        try {
+            ArrayList<Long> ids = new ArrayList<>();
+            for (Map.Entry<Long, Game> entry : games.entrySet()) {
+                ids.add(entry.getKey());
+            }
+            return ids;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    public Game loadGamestate() {
-        return null;
-    }
-
-    public void saveClientHandler(ClientHandler clientHandler) {
-    }
-
-    public ClientHandler loadClientHandler() {
-        return null;
+    private boolean checkPassword(String username, String password) {
+        return users.get(username).equals(password);
     }
 }

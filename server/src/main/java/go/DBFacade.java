@@ -10,4 +10,5 @@ public interface DBFacade {
     boolean saveGame(Game game);
     Game loadGame(long id);
     ArrayList<Long> getGameIds();
+
 }
