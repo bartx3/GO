@@ -1,15 +1,17 @@
 package go.client;
 
-public class MoveHandler implements Gamestate{
+public class MoveChecker implements Gamestate{
+    Move move;
 
     @Override
     public Move createMove() {
-        Move move = new Move;
+        return move;
     }
 
     @Override
     public boolean checkMove() {
-
+        int checked_x=move.getX();
+        int checked_y=move.getY();
         return false;
     }
 
