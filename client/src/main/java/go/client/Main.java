@@ -12,7 +12,7 @@ public class Main {
 
             System.out.println("Give the y coordinate[1-19]: ");
             int black_y = scan.nextInt();
-            MoveCreater black_move=new MoveCreater(black_x,black_y);
+            MoveCreator black_move=new MoveCreator(black_x,black_y);
 
             if(black_move.checkMove()==true){
                 System.out.println("wrong coordinates, try again");
@@ -22,7 +22,7 @@ public class Main {
 
                 System.out.println("Give the y coordinate[1-19]: ");
                 black_y = scan.nextInt();
-                black_move=new MoveCreater(black_x,black_y);
+                black_move=new MoveCreator(black_x,black_y);
             }
 
             System.out.println("player white "+i+"th move");
@@ -31,7 +31,7 @@ public class Main {
 
             System.out.println("Give the y coordinate[1-19]: ");
             int white_y = scan.nextInt();
-            MoveCreater white_move=new MoveCreater(white_x,white_y);
+            MoveCreator white_move=new MoveCreator(white_x,white_y);
 
             if(white_move.checkMove()==true){
                 System.out.println("wrong coordinates, try again");
@@ -41,7 +41,7 @@ public class Main {
 
                 System.out.println("Give the y coordinate[1-19]: ");
                 white_y = scan.nextInt();
-                white_move=new MoveCreater(white_x,white_y);
+                white_move=new MoveCreator(white_x,white_y);
             }
 
         }
