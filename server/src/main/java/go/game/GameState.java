@@ -28,6 +28,30 @@ public class GameState {
         this.player2Captures = player2Captures;
     }
 
+    public int countScoreP1() {
+        int score = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j <size; ++j) {
+                if (board[i][j] == fieldState.BLACK) {
+                    score++;
+                }
+            }
+        }
+        return score + player1Captures;
+    }
+
+    public int countScoreP2() {
+        int score = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j <size; ++j) {
+                if (board[i][j] == fieldState.WHITE) {
+                    score++;
+                }
+            }
+        }
+        return score + player2Captures;
+    }
+
     public enum fieldState {
         EMPTY,
         BLACK,

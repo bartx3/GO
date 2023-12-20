@@ -4,12 +4,19 @@ import java.util.ArrayList;
 
 public class Game {
     public final long id;
-    public final long player1;
-    public final long player2;
 
+    public enum FinalState {
+        NOT_FINISHED,
+        PLAYER1_WON,
+        PLAYER2_WON,
+        DRAW
+    }
+    public final String player1;
+    public final String player2;
+    public FinalState winner = FinalState.NOT_FINISHED;
     public ArrayList<GameState> gameStates;
 
-    public Game(long id, long player1, long player2) {
+    public Game(long id, String player1, String player2) {
         this.id = id;
         this.player1 = player1;
         this.player2 = player2;

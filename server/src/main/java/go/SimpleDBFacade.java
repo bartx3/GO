@@ -9,7 +9,7 @@ public class SimpleDBFacade implements DBFacade {
     TreeMap<Long, Game> games = new TreeMap<>();
 
     @Override
-    public boolean register(String username, String password) {
+    public synchronized boolean register(String username, String password) {
         if (users.containsKey(username)) {
             return false;
         }
@@ -22,7 +22,7 @@ public class SimpleDBFacade implements DBFacade {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public synchronized boolean login(String username, String password) {
         if (!users.containsKey(username)) {
             return false;
         }
@@ -30,7 +30,7 @@ public class SimpleDBFacade implements DBFacade {
     }
 
     @Override
-    public boolean saveGame(Game game) {
+    public synchronized boolean saveGame(Game game) {
         try {
             games.put(game.id, game);
             return true;
@@ -40,7 +40,7 @@ public class SimpleDBFacade implements DBFacade {
     }
 
     @Override
-    public Game loadGame(long id) {
+    public synchronized Game loadGame(long id) {
         try {
             return games.get(id);
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class SimpleDBFacade implements DBFacade {
     }
 
     @Override
-    public ArrayList<Long> getGameIds() {
+    public synchronized ArrayList<Long> getGameIds() {
         try {
             ArrayList<Long> ids = new ArrayList<>();
             for (Map.Entry<Long, Game> entry : games.entrySet()) {
@@ -58,6 +58,28 @@ public class SimpleDBFacade implements DBFacade {
             return ids;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public synchronized ArrayList<String> getUsernames() {
+        try {
+            ArrayList<String> usernames = new ArrayList<>();
+            for (Map.Entry<String, String> entry : users.entrySet()) {
+                usernames.add(entry.getKey());
+            }
+            return usernames;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public synchronized long generateGameId() {
+        try {
+            return games.lastKey() + 1;
+        } catch (Exception e) {
+            return 0;
         }
     }
 

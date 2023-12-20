@@ -45,13 +45,13 @@ public class GameStateBuilder {
     }
 
     private boolean fastCheckMove(Move move) {
-        if (move.getIsPass()) {
+        if (move.isPass) {
             return true;
         }
-        if (move.getX() < 0 || move.getX() >= size || move.getY() < 0 || move.getY() >= size) {
+        if (move.x < 0 || move.x >= size || move.y < 0 || move.y >= size) {
             return false;
         }
-        return board[move.getX()][move.getY()] == GameState.fieldState.EMPTY;
+        return board[move.x][move.y] == GameState.fieldState.EMPTY;
     }
 
     private int countBreaths(int x, int y, GameState.fieldState color) {
@@ -85,21 +85,22 @@ public class GameStateBuilder {
     }
 
     public void MakeMove(Move move) {
-        turn++;
-        if (move.getIsPass()) {
+        if (move.whiteturn)
+            turn++;
+        if (move.isPass)
             return;
-        }
-        board[move.getX()][move.getY()] = move.getWhiteTurn() ? GameState.fieldState.WHITE : GameState.fieldState.BLACK;
+
+        board[move.x][move.y] = move.whiteturn ? GameState.fieldState.WHITE : GameState.fieldState.BLACK;
         int[][] breaths = countAllBreaths();
         //Najpierw zbijamy przeciwnika
         for (int i = 0; i < size; i++) {
             for (int j = 0 ; j < size; j++) {
                 if (breaths[i][j] == 0) {
-                    if (board[i][j] == GameState.fieldState.BLACK && move.getWhiteTurn()) {
+                    if (board[i][j] == GameState.fieldState.BLACK && move.whiteturn) {
                         board[i][j] = GameState.fieldState.EMPTY;
                         player1Captures++;
                     }
-                    if (board[i][j] == GameState.fieldState.WHITE && !move.getWhiteTurn()) {
+                    if (board[i][j] == GameState.fieldState.WHITE && !move.whiteturn) {
                         board[i][j] = GameState.fieldState.EMPTY;
                         player2Captures++;
                     }
@@ -125,9 +126,17 @@ public class GameStateBuilder {
     }
 
     private boolean checkPostMove(Move move) {
-        if (move.getIsPass()) {
+        if (move.isPass) {
             return true;
         }
-        return board[move.getX()][move.getY()] != GameState.fieldState.EMPTY;
+        return board[move.x][move.y] != GameState.fieldState.EMPTY;
+    }
+
+    public boolean performAndCheckMove(Move move) {
+        if (!fastCheckMove(move)) {
+            return false;
+        }
+        MakeMove(move);
+        return checkPostMove(move);
     }
 }

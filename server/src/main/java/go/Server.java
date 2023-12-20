@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.concurrent.Semaphore;
 
 public class Server {
+    static final DBFacade db = new SimpleDBFacade();
     static final System.Logger logger = System.getLogger("ServerLogger");
 
     public static Semaphore onlineUsersSemaphore = new Semaphore(1);
