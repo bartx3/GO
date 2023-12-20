@@ -24,24 +24,30 @@ public class Main {
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             ui.putLine("Connected to server");
 
-            String response = null;
+            Object response = null;
             do {
                 String name = ui.getLine();
                 out.writeObject(name);
-                response = (String) in.readObject();
-            } while (response.equals("taken"));
+                response = in.readObject();
+            } while (!response.equals("accepted"));
+            ui.putLine("Logged in");
 
-            logger.log(System.Logger.Level.INFO, "Logged in");
             do {
                 String command = ui.getLine();
                 String[] commandParts = command.split(" ");
                 for (String part : commandParts) {
                     out.writeObject(part);
                 }
-                response = (String) in.readObject();
+                response = in.readObject();
                 if (command.equals("list")) {
-                    Set<String> users = (Set<String>) in.readObject();
+                    logger.log(System.Logger.Level.INFO, "Listuję innych użytkowników");
+                    if (!(response instanceof String[])) {
+                        ui.putLine("Nie trafiłem na seta");
+                        break;
+                    }
+                    String[] users = (String[]) response;
                     ui.showUserList(users);
+                    continue;
                 }
                 if (response.equals("accepted")) {
                     ui.putLine("Challenge accepted");

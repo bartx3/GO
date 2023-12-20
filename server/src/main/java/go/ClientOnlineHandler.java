@@ -38,6 +38,7 @@ public class ClientOnlineHandler extends Thread{
             Server.usersOnline.put(name, new SessionData(socket, name));
             Server.onlineUsersSemaphore.release();
             logger.log(System.Logger.Level.INFO, "User " + name + " logged in");
+            (new ClientHandler(socket, name)).start();
 
         }
         catch(Exception e) {
@@ -53,6 +54,7 @@ public class ClientOnlineHandler extends Thread{
             try {
                 Thread.sleep(1000);
                 if (socket.isClosed()) {
+                    logger.log(System.Logger.Level.ERROR, "Klient " + name + " nieaktywny");
                     Server.onlineUsersSemaphore.acquire();
                     Server.usersOnline.remove(name);
                     Server.onlineUsersSemaphore.release();

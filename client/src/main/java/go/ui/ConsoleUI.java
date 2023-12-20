@@ -8,10 +8,12 @@ import java.util.Set;
 
 public class ConsoleUI implements BasicUIFacade{
 
+    System.Logger logger = System.getLogger("ConsoleLogger");
 
     @Override
     public void showGameState(GameState gameState) {
         clearscreen();
+        logger.log(System.Logger.Level.INFO, "Wyświetlam stan gry");
         System.out.println("Turn: " + gameState.getTurn());
         for (int i = 0; i < gameState.getBoard().length; i++) {
             for (int j = 0; j < gameState.getBoard()[i].length; j++) {
@@ -55,7 +57,7 @@ public class ConsoleUI implements BasicUIFacade{
     }
 
     @Override
-    public void showUserList(Set<String> games) {
+    public void showUserList(String[] games) {
         System.out.println("Available players: ");
         for (String game : games) {
             System.out.println(game);
@@ -64,6 +66,7 @@ public class ConsoleUI implements BasicUIFacade{
 
     @Override
     public void putLine(String line) {
+        logger.log(System.Logger.Level.INFO, "Wyświetlam linijkę");
         System.out.println(line);
     }
 

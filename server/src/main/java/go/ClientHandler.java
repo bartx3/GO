@@ -1,5 +1,6 @@
 package go;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -36,8 +37,9 @@ public class ClientHandler extends Thread {
                     return;
                 }
                 if (message.equals("list")) {
+                    logger.log(Level.INFO, "Wyświetlamy listę pozostałych użytkowników dla " + this.username);
                     Server.onlineUsersSemaphore.acquire();
-                    out.writeObject(Server.usersOnline.keySet());
+                    out.writeObject(Server.usersOnline.keySet().toArray());
                     Server.onlineUsersSemaphore.release();
                     continue;
                 }
@@ -82,6 +84,12 @@ public class ClientHandler extends Thread {
             }
             catch(Exception e) {
                 logger.log(Level.SEVERE, e.getMessage());
+                try {
+                    socket.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                return;
             }
         }
     }

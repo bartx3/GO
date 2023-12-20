@@ -20,7 +20,7 @@ public interface BasicUIFacade {
 
     Move getMove();
 
-    void showUserList(Set<String> games);
+    void showUserList(String[] games);
 
     void showWinner(String winner);
 }
