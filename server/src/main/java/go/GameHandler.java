@@ -73,7 +73,7 @@ public class GameHandler extends Thread{
                         break;
                     }
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
-                    boolean goodmove = gameStateBuilder.performAndCheckMove(move);
+                    boolean goodmove = gameStateBuilder.performAndCheckMove(move, player1Turn);
                     if (!goodmove) {
                         if (player1Turn) {
                             p1out.writeObject("badmove");
@@ -115,6 +115,10 @@ public class GameHandler extends Thread{
                     game.winner = Game.FinalState.DRAW;
                 }
             }
+            Server.db.saveGame(game);
+            String winner = game.winner == Game.FinalState.PLAYER1_WON ? name1 : name2;
+            p2out.writeObject("gameover");
+            p1out.writeObject("gameover");
 
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, e.getMessage());

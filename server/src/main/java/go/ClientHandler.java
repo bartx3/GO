@@ -72,11 +72,9 @@ public class ClientHandler extends Thread {
                             out.writeObject("accepted");
 
                             (new GameHandler(username, opponentSession.username)).start();
-                            continue;
                         }
                         else {
                             out.writeObject("rejected");
-                            continue;
 
                         }
                     }

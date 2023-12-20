@@ -37,6 +37,7 @@ public class ClientOnlineHandler extends Thread{
             out.writeObject("accepted");
             Server.usersOnline.put(name, new SessionData(socket, name));
             Server.onlineUsersSemaphore.release();
+            logger.log(System.Logger.Level.INFO, "User " + name + " logged in");
 
         }
         catch(Exception e) {

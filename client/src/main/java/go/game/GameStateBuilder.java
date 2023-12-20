@@ -84,23 +84,23 @@ public class GameStateBuilder {
         return breaths;
     }
 
-    public void MakeMove(Move move) {
-        if (move.whiteturn)
+    public void MakeMove(Move move, boolean whiteturn) {
+        if (whiteturn)
             turn++;
         if (move.isPass)
             return;
 
-        board[move.x][move.y] = move.whiteturn ? GameState.fieldState.WHITE : GameState.fieldState.BLACK;
+        board[move.x][move.y] = whiteturn ? GameState.fieldState.WHITE : GameState.fieldState.BLACK;
         int[][] breaths = countAllBreaths();
         //Najpierw zbijamy przeciwnika
         for (int i = 0; i < size; i++) {
             for (int j = 0 ; j < size; j++) {
                 if (breaths[i][j] == 0) {
-                    if (board[i][j] == GameState.fieldState.BLACK && move.whiteturn) {
+                    if (board[i][j] == GameState.fieldState.BLACK && whiteturn) {
                         board[i][j] = GameState.fieldState.EMPTY;
                         player1Captures++;
                     }
-                    if (board[i][j] == GameState.fieldState.WHITE && !move.whiteturn) {
+                    if (board[i][j] == GameState.fieldState.WHITE && !whiteturn) {
                         board[i][j] = GameState.fieldState.EMPTY;
                         player2Captures++;
                     }
@@ -132,11 +132,11 @@ public class GameStateBuilder {
         return board[move.x][move.y] != GameState.fieldState.EMPTY;
     }
 
-    public boolean performAndCheckMove(Move move) {
+    public boolean performAndCheckMove(Move move, boolean whiteturn) {
         if (!fastCheckMove(move)) {
             return false;
         }
-        MakeMove(move);
+        MakeMove(move, whiteturn);
         return checkPostMove(move);
     }
 }
