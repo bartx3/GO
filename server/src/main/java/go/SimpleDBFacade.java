@@ -29,6 +29,7 @@ public class SimpleDBFacade implements DBFacade {
         return checkPassword(username, password);
     }
 
+    @Override
     public boolean saveGame(Game game) {
         try {
             games.put(game.id, game);
@@ -59,6 +60,8 @@ public class SimpleDBFacade implements DBFacade {
             return null;
         }
     }
+
+
 
     private boolean checkPassword(String username, String password) {
         return users.get(username).equals(password);
