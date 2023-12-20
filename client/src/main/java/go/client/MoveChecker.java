@@ -2,7 +2,7 @@ package go.client;
 
 public class MoveChecker implements Gamestate{
     Move move;
-    //do storowania koordynatów przyda sie tez jakis playerhandler, kótry później sprawdzi z ztymi oddechami
+    //do storowania koordynatów przyda sie tez jakis playerhandler (w serverze będzie), kótry później sprawdzi z ztymi oddechami
     int coordinates_list[][]=new int[360][360];
 
     @Override

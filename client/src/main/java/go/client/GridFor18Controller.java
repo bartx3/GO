@@ -21,7 +21,7 @@ public class GridFor18Controller {
         int y=grid_for_19.getColumnIndex();
         int x=grid_for_19.getRowIndex();
 
-        Move wants_to_move=new Move(x,y);
+        MoveCreater wants_to_move=new MoveCreater(x,y);
         //wysyłanie do serwera x i y
     }
 }
