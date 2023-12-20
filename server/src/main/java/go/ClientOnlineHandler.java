@@ -17,6 +17,7 @@ public class ClientOnlineHandler extends Thread{
     private String name;
 
     public ClientOnlineHandler(Socket socket) {
+        super();
         this.socket = socket;
         ObjectInputStream in;
         ObjectOutputStream out;

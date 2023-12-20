@@ -14,6 +14,7 @@ public class ClientHandler extends Thread {
     private ObjectInputStream in;
 
     public ClientHandler(Socket socket, String username) {
+        super();
         this.socket = socket;
         this.username = username;
         try {
@@ -41,14 +42,43 @@ public class ClientHandler extends Thread {
                     continue;
                 }
                 if (message.equals("challenge")) {
-                    String opponent = (String) in.readObject();
                     Server.onlineUsersSemaphore.acquire();
-                    if (Server.usersOnline.containsKey(opponent)) {
-                        
-                    }
-                    else {
+                    if (Server.usersOnline.get(username).isPlaying) {
                         out.writeObject("rejected");
                         continue;
+                    }
+                    String opponent = (String) in.readObject();
+                    if (!Server.usersOnline.containsKey(opponent)) {
+                        out.writeObject("rejected");
+                        Server.onlineUsersSemaphore.release();
+                        continue;
+                    }
+
+                    //ToDo: jakiś lock na opponentSession i mój session
+                    SessionData opponentSession = Server.usersOnline.get(opponent);
+                    Server.onlineUsersSemaphore.release();
+                    synchronized (opponentSession) {
+                        if (opponentSession.isPlaying) {
+                            out.writeObject("rejected");
+                            continue;
+                        }
+                        Socket opponentSocket = opponentSession.socket;
+                        ObjectInputStream opponentIn = new ObjectInputStream(opponentSocket.getInputStream());
+                        ObjectOutputStream opponentOut = new ObjectOutputStream(opponentSocket.getOutputStream());
+                        opponentOut.writeObject("challenge");
+                        opponentOut.writeObject(username);
+                        if (opponentIn.readObject().equals("accepted")) {
+                            opponentSession.setIsPlaying(true);
+                            out.writeObject("accepted");
+
+                            (new GameHandler(username, opponentSession.username)).start();
+                            continue;
+                        }
+                        else {
+                            out.writeObject("rejected");
+                            continue;
+
+                        }
                     }
                 }
             }
