@@ -35,7 +35,6 @@ public class ClientInitHandler extends Thread{
             Server.usersOnline.put(name, socket);
             Server.onlineUsersSemaphore.release();
 
-
             while (true) {
                 Thread.sleep(1000);
                 if (socket.isClosed()) {
