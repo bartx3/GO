@@ -1,4 +1,4 @@
-package go.client;
+package go;
 /*
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

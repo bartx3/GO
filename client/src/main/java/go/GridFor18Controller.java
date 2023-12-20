@@ -1,4 +1,4 @@
-package go.client;
+package go;
 /*
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;

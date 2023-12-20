@@ -5,17 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d754800-318d-483f-8a76-c1d4461e0364" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../server/src/main/java/go/PlayersPlayingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/go/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/go/ui/BasicUIFacade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/go/ui/ConsoleUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/client/GridFor18Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/GridFor18Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/client/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/client/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/client/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/client/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/client/game/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/game/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/client/game/GameStateBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/game/GameStateBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/client/game/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/game/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/go/client/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/go/hello-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/DBFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/DBFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/GameHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/SimpleDBFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/SimpleDBFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/game/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/game/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/game/GameStateBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/game/GameStateBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/game/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/game/Move.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +32,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -86,7 +94,7 @@
       <workItem from="1702996608609" duration="55000" />
       <workItem from="1702999132946" duration="1643000" />
       <workItem from="1703001441935" duration="600000" />
-      <workItem from="1703024422604" duration="3061000" />
+      <workItem from="1703024422604" duration="5333000" />
     </task>
     <servers />
   </component>

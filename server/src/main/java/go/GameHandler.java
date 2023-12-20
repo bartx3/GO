@@ -119,7 +119,11 @@ public class GameHandler extends Thread{
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, e.getMessage());
         }
-        Server.onlineUsersSemaphore.acquire();
+        try {
+            Server.onlineUsersSemaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Server.usersOnline.get(name1).setIsPlaying(false);
         Server.usersOnline.get(name2).setIsPlaying(false);
         Server.onlineUsersSemaphore.release();

@@ -2,8 +2,21 @@ package go.game;
 
 public class GameState {
     final int size;
+    public int getSize() {
+        return size;
+    }
     final fieldState[][] board;
+
+    public fieldState[][] getBoard() {
+        return board;
+    }
+
     final int turn;
+
+    public int getTurn() {
+        return turn;
+    }
+
     final int player1Captures;
     final int player2Captures;
 

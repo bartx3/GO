@@ -4,5 +4,6 @@ module go.client {
 
 
     //opens go.client to javafx.fxml;
-    exports go.client;
+    exports go;
+    exports go.ui;
 }
