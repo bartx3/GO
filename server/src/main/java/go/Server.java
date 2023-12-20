@@ -8,7 +8,7 @@ public class Server {
     static final System.Logger logger = System.getLogger("ServerLogger");
 
     public static Semaphore onlineUsersSemaphore = new Semaphore(1);
-    public static HashMap<String, Socket> usersOnline = new HashMap<>();
+    public static HashMap<String, SessionData> usersOnline = new HashMap<>();
     public static void main(String[] args) {
         final int PORT = 8080;
 
@@ -19,7 +19,7 @@ public class Server {
             while(true) {
                 Socket client = socket.accept();
                 logger.log(System.Logger.Level.INFO, "Client connected");
-                (new ClientInitHandler(client)).start();
+                (new ClientOnlineHandler(client)).start();
             }
 
         }
