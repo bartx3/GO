@@ -10,14 +10,16 @@ import java.net.Socket;
  * getting its username and adding it to the online users list
  * and checking every second if the client is still connected
  */
-public class ClientInitHandler extends Thread{
+public class ClientOnlineHandler extends Thread{
 
     static final System.Logger logger = System.getLogger("CHlogger");
+    private final Socket socket;
+    private String name;
 
-    public ClientInitHandler(Socket socket) {
+    public ClientOnlineHandler(Socket socket) {
+        this.socket = socket;
         ObjectInputStream in;
         ObjectOutputStream out;
-        String name;
 
         try {
             in = new ObjectInputStream(socket.getInputStream());
@@ -32,18 +34,8 @@ public class ClientInitHandler extends Thread{
                 return;
             }
             out.writeObject("accepted");
-            Server.usersOnline.put(name, socket);
+            Server.usersOnline.put(name, new SessionData(socket, name));
             Server.onlineUsersSemaphore.release();
-
-            while (true) {
-                Thread.sleep(1000);
-                if (socket.isClosed()) {
-                    Server.onlineUsersSemaphore.acquire();
-                    Server.usersOnline.remove(name);
-                    Server.onlineUsersSemaphore.release();
-                    return;
-                }
-            }
 
         }
         catch(Exception e) {
@@ -55,7 +47,21 @@ public class ClientInitHandler extends Thread{
     }
 
     public void run() {
-
+        while (true) {
+            try {
+                Thread.sleep(1000);
+                if (socket.isClosed()) {
+                    Server.onlineUsersSemaphore.acquire();
+                    Server.usersOnline.remove(name);
+                    Server.onlineUsersSemaphore.release();
+                    return;
+                }
+            }
+            catch(Exception e) {
+                logger.log(System.Logger.Level.ERROR, e.getMessage());
+                return;
+            }
+        }
     }
 
 
