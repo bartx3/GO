@@ -1,9 +1,18 @@
 package go.client;
 
-public class Move {
+public class Move{
+    int x;
+    int y;
     public Move(int x, int y) {
-        /**/
-        System.out.println("Give the x coordinate[1-19]: ");
-
+        this.x=x;
+        this.y=y;
     }
+
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
+    }
+
 }
