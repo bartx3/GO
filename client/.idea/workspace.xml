@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4d754800-318d-483f-8a76-c1d4461e0364" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/go/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/go/ui/BasicUIFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/ui/BasicUIFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/go/ui/ConsoleUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/ui/ConsoleUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/ClientOnlineHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/ClientOnlineHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/java/go/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/go/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +60,26 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="go.Main" />
+      <module name="client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="go.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -84,7 +102,8 @@
       <workItem from="1702999132946" duration="1643000" />
       <workItem from="1703001441935" duration="600000" />
       <workItem from="1703024422604" duration="14896000" />
-      <workItem from="1703067550562" duration="1623000" />
+      <workItem from="1703067550562" duration="4793000" />
+      <workItem from="1703073722966" duration="848000" />
     </task>
     <servers />
   </component>
@@ -95,5 +114,10 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/client$Main.ic" NAME="Main Coverage Results" MODIFIED="1703069421279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>go.*</FILTER>
+    </SUITE>
   </component>
 </project>

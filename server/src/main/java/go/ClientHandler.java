@@ -7,24 +7,25 @@ import java.net.Socket;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-public class ClientHandler extends Thread {
+
+/**
+ * Our handler for client interraction.
+ * It is meant to allow checking the list of other connected clients,
+ * challenge them and accept or decline challanges
+ */
+public class ClientHandler implements Runnable {
     Logger logger = Logger.getLogger("ClientHandlerLogger");
     private final Socket socket;
     private final String username;
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
-    public ClientHandler(Socket socket, String username) {
+    public ClientHandler(Socket socket, String username, ObjectInputStream in, ObjectOutputStream out) {
         super();
         this.socket = socket;
         this.username = username;
-        try {
-            this.in = new ObjectInputStream(socket.getInputStream());
-            this.out = new ObjectOutputStream(socket.getOutputStream());
-        }
-        catch(Exception e) {
-            logger.log(Level.SEVERE, e.getMessage());
-        }
+        this.in = in;
+        this.out = out;
     }
 
     @Override

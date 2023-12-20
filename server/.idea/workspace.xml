@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="58f0a5fe-30c0-4d5f-a22f-3b2f74bc08b0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/go/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/go/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/go/ui/BasicUIFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/go/ui/BasicUIFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/go/ui/ConsoleUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/go/ui/ConsoleUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/go/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/go/ClientOnlineHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/ClientOnlineHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/go/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/go/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +79,8 @@
       <workItem from="1702999130671" duration="1840000" />
       <workItem from="1703001438647" duration="6047000" />
       <workItem from="1703024648600" duration="35236000" />
-      <workItem from="1703067557900" duration="1459000" />
+      <workItem from="1703067557900" duration="4965000" />
+      <workItem from="1703073730212" duration="830000" />
     </task>
     <servers />
   </component>

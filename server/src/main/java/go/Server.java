@@ -4,6 +4,10 @@ import java.net.*;
 import java.util.HashMap;
 import java.util.concurrent.Semaphore;
 
+
+/**
+ * Our main class of our server. Gets control of our client sockets and gives to the ClientOnlineHandlers
+ */
 public class Server {
     static final DBFacade db = new SimpleDBFacade();
     static final System.Logger logger = System.getLogger("ServerLogger");
@@ -18,9 +22,12 @@ public class Server {
             socket = new ServerSocket(PORT);
 
             while(true) {
+                logger.log(System.Logger.Level.INFO, "Ready for new client");
                 Socket client = socket.accept();
                 logger.log(System.Logger.Level.INFO, "Client connected");
-                (new ClientOnlineHandler(client)).start();
+                Thread t = new Thread(new ClientOnlineHandler(client));
+                logger.log(System.Logger.Level.INFO, "Client handler created");
+                t.start();
             }
 
         }
