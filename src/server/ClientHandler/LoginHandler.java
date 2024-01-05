@@ -1,6 +1,7 @@
 package server.ClientHandler;
 
 import communications.Credentials;
+import communications.SocketException;
 import communications.SocketFacade;
 import server.DB.DBFacade;
 import server.Server;
@@ -27,15 +28,19 @@ public class LoginHandler extends Thread{
             while (true) {
                 try {
                     if (trylogin()) {
+                        Server.usersOnline.put(credentials.username, new SessionData(socket, credentials.username));
+                        Server.usersOnline.get(credentials.username).start();
                         break;
                     }
                 } catch (RuntimeException e) {
                     Logger.getLogger("ServerLogger").log(Level.SEVERE, e.getMessage());
                 }
             }
+            while (true){} // waiting for now
         }
         catch (Exception e) {       // Something happens to socket itself
             Logger.getLogger("ServerLogger").log(Level.SEVERE, e.getMessage());
+            throw new SocketException();
         }
     }
 

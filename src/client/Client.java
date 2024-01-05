@@ -2,7 +2,6 @@ package client;
 
 import client.UI.ConsoleUI;
 import client.UI.UI;
-import communications.Credentials;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -27,6 +26,10 @@ public class Client {
             socket.close();
         }
         catch (IOException e)
+        {
+            ui.showErrorMessage("Error happened while connecting to server");
+        }
+        catch (Exception e)
         {
             ui.showErrorMessage("Error happened while connecting to server");
         }

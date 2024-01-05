@@ -1,6 +1,5 @@
 package server;
 
-import communications.SocketFacade;
 import server.ClientHandler.ClientHandler;
 import server.ClientHandler.SessionData;
 import server.DB.DBFacade;
@@ -10,7 +9,6 @@ import java.net.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Semaphore;
 
 
 /**

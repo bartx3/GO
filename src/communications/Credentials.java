@@ -1,6 +1,6 @@
 package communications;
 
-public class Credentials {
+public class Credentials implements java.io.Serializable {
     public String username;
     public String password;
 

@@ -2,6 +2,7 @@ package client;
 
 import client.UI.UI;
 import communications.Credentials;
+import communications.SocketException;
 import communications.SocketFacade;
 import communications.loginException;
 
@@ -13,7 +14,7 @@ public class MainHandler implements Runnable {
     protected UI ui;
     protected Credentials credentials;
 
-    public MainHandler(Socket socket, UI ui) {
+    public MainHandler(Socket socket, UI ui) throws Exception {
         this.socket = new SocketFacade(socket);
         this.ui = ui;
     }
@@ -25,7 +26,6 @@ public class MainHandler implements Runnable {
             while (true) {
                 try {
                     login();
-                    ui.promptMessage("Login successful");
                     break;
                 } catch (loginException e) {
                     ui.showErrorMessage("Login failed");
@@ -34,10 +34,11 @@ public class MainHandler implements Runnable {
         }
         catch (Exception e) {       // Something happens to socket itself
             ui.showErrorMessage("Error happened while connecting to server");
+            ui.showErrorMessage(e.getMessage());
         }
     }
 
-    public void login() throws loginException, Exception
+    public void login() throws loginException, SocketException
     {
         credentials = ui.getCredentials();
         socket.send(credentials);
