@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<Pane id="pane_logging" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="260.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Button id="btn_logging" layoutX="274.0" layoutY="246.0" mnemonicParsing="false" onAction="#btnLogged" text="Log in" />
+      <TextField id="txtfield_username" layoutX="323.0" layoutY="107.0" />
+      <Text id="txt_username" layoutX="221.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username" />
+      <Text id="txt_password" layoutX="221.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password" />
+      <TextField id="txtfield_password" layoutX="323.0" layoutY="160.0" />
+   </children>
+</Pane>
