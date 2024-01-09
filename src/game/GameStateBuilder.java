@@ -1,4 +1,4 @@
-package go.game;
+package game;
 
 public class GameStateBuilder {
     private int size;

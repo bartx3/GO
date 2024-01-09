@@ -1,8 +1,7 @@
 package client.UI;
 
 import communications.Credentials;
-import go.game.GameState;
-import go.game.Move;
+import game.*;
 
 /**
  * Facade for the UI

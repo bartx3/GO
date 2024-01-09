@@ -1,6 +1,6 @@
-package go.game;
+package game;
 
-public class Move {
+public class Move implements java.io.Serializable {
     public final int x;
     public final int y;
     //public final boolean whiteturn;

@@ -1,6 +1,6 @@
-package go.game;
+package game;
 
-public class GameState {
+public class GameState implements java.io.Serializable {
     final int size;
     public int getSize() {
         return size;
