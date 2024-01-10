@@ -21,20 +21,23 @@ public class ClientHandler implements Runnable{
     @Override
     public void run() {
         LoginHandler loginHandler = new LoginHandler(socket);
+
         try {
-            loginHandler.start();
-            loginHandler.join();
-        } catch (InterruptedException e) {
+            loginHandler.run();
+            credentials = loginHandler.getCredentials();
+            if (credentials == null) {
+                throw new RuntimeException("Credentials not received");
+            }
+            SessionData sessionData = new SessionData(socket, credentials.username);
+            Server.usersOnline.put(credentials.username, sessionData);
+            RequestHandler requestHandler = new RequestHandler(sessionData);
+            requestHandler.run();
+
+        } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, e.getMessage());
         }
-        credentials = loginHandler.getCredentials();
-        if (credentials == null) {
-            logger.log(System.Logger.Level.ERROR, "Login failed");
-            return;
-        }
 
-        SessionData sessionData = new SessionData(socket, credentials.username);
-        Server.usersOnline.put(credentials.username, sessionData);
+
 
     }
 }

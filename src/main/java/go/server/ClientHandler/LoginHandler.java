@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.net.SocketException;
 
-public class LoginHandler extends Thread{
+public class LoginHandler implements Runnable{
     protected SocketFacade socket;
     protected Credentials credentials;
 

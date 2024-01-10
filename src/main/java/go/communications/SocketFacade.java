@@ -1,5 +1,6 @@
 package go.communications;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -24,7 +25,7 @@ public class SocketFacade {
         }
     }
 
-    public void send(Serializable obj) throws SocketException {
+    public synchronized void send(Serializable obj) throws SocketException {
         try{
             out.writeObject(obj);
         }
@@ -39,13 +40,25 @@ public class SocketFacade {
         return socket;
     }
 
-    public Serializable receive() throws SocketException {
+    public synchronized Serializable receive() throws SocketException {
         try{
             Serializable obj = (Serializable) in.readObject();
             logger.log(System.Logger.Level.INFO, "Received object");
             return obj;
         }
         catch (Exception e){
+            throw new SocketException();
+        }
+    }
+
+    public boolean isConnected() {
+        return socket.isConnected();
+    }
+
+    public boolean dataAvailable() throws SocketException {
+        try {
+            return in.available() > 0;
+        } catch (IOException e) {
             throw new SocketException();
         }
     }

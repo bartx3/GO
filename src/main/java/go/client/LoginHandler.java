@@ -5,17 +5,16 @@ import go.communications.Credentials;
 import go.communications.SocketFacade;
 import go.communications.loginException;
 
-import java.net.Socket;
 import java.net.SocketException;
 
-public class MainHandler implements Runnable {
+public class LoginHandler implements Runnable {
 
     protected SocketFacade socket;
     protected UI ui;
     protected Credentials credentials;
 
-    public MainHandler(Socket socket, UI ui) throws Exception {
-        this.socket = new SocketFacade(socket);
+    public LoginHandler(SocketFacade socket, UI ui) throws Exception {
+        this.socket = socket;
         this.ui = ui;
     }
 
@@ -31,6 +30,8 @@ public class MainHandler implements Runnable {
                     ui.showErrorMessage("Login failed");
                 }
             }
+
+
         }
         catch (Exception e) {       // Something happens to socket itself
             ui.showErrorMessage("Error happened while connecting to server");

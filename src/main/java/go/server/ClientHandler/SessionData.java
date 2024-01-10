@@ -2,12 +2,15 @@ package go.server.ClientHandler;
 
 import go.communications.SocketFacade;
 
+import java.util.concurrent.Semaphore;
+
 
 public class SessionData {
     public final SocketFacade socket;
     public final String username;
     public boolean isPlaying;
     protected ClientObserver observer;
+    public Semaphore semaphore = new Semaphore(1);
 
     public SessionData(SocketFacade socket, String username) {
         this.socket = socket;

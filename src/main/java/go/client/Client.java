@@ -2,9 +2,10 @@ package go.client;
 
 import go.client.UI.ConsoleUI;
 import go.client.UI.UI;
+import go.communications.SocketFacade;
 
-import java.io.IOException;
 import java.net.Socket;
+import java.util.concurrent.Semaphore;
 
 public class Client {
     private static final String SERVER_ADDRESS = "localhost";
@@ -20,14 +21,18 @@ public class Client {
                 ui.showErrorMessage("Could not connect to server");
                 return;
             }
-            MainHandler mainHandler = new MainHandler(socket, ui);
-            mainHandler.run();
+            SocketFacade socketFacade = new SocketFacade(socket);
+            LoginHandler loginHandler = new LoginHandler(socketFacade, ui);
+            loginHandler.run();
+
+            Semaphore SocketSemaphore = new Semaphore(1);
+            UIMenuListener uiMenuListener = new UIMenuListener(socketFacade, SocketSemaphore, ui);
+            uiMenuListener.start();
+            ServerListener serverListener = new ServerListener(socketFacade, SocketSemaphore, uiMenuListener, ui);
+            serverListener.start();
+
 
             socket.close();
-        }
-        catch (IOException e)
-        {
-            ui.showErrorMessage("Error happened while connecting to server");
         }
         catch (Exception e)
         {

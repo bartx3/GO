@@ -1,5 +1,6 @@
 package go.client.UI;
 
+import go.communications.Packet;
 import go.communications.Credentials;
 import go.game.*;
 
@@ -21,4 +22,8 @@ public interface UI {
     void showUserList(String[] games);
 
     void showWinner(String winner);
+
+    Packet getCommand();
+
+    boolean getConfirmation(String message);
 }

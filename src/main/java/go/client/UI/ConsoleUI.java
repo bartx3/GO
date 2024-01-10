@@ -1,5 +1,6 @@
 package go.client.UI;
 
+import go.communications.Packet;
 import go.communications.Credentials;
 import go.game.*;
 
@@ -85,5 +86,29 @@ public class ConsoleUI implements UI {
     {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    @Override
+    public Packet getCommand() {
+        System.out.println("Enter your command: ");
+        String command = getLine();
+        String[] commandArray = command.split(" ");
+        try {
+            return new Packet(commandArray[0], commandArray[1]);
+        } catch (Exception e) {
+            System.out.println("Wrong command format");
+        }
+        return null;
+    }
+
+    @Override
+    public boolean getConfirmation(String message) {
+        System.out.println(message);
+        String confirmation = getLine();
+        if (confirmation.equals("y")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
