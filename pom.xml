@@ -57,24 +57,13 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <id>server</id>
+                        <!-- Default configuration for running with: mvn clean javafx:run -->
+                        <id>default-cli</id>
                         <configuration>
-                            <mainClass>go/go.server.Server</mainClass>
-                            <launcher>server</launcher>
-                            <jlinkZipName>server</jlinkZipName>
-                            <jlinkImageName>server</jlinkImageName>
-                            <noManPages>true</noManPages>
-                            <stripDebug>true</stripDebug>
-                            <noHeaderFiles>true</noHeaderFiles>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>client</id>
-                        <configuration>
-                            <mainClass>go/go.client.Client</mainClass>
-                            <launcher>client</launcher>
-                            <jlinkZipName>client</jlinkZipName>
-                            <jlinkImageName>client</jlinkImageName>
+                            <mainClass>go.go/go.client.Client</mainClass>
+                            <launcher>app</launcher>
+                            <jlinkZipName>app</jlinkZipName>
+                            <jlinkImageName>app</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>

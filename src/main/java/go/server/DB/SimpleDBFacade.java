@@ -3,7 +3,9 @@ package go.server.DB;
 import go.communications.Credentials;
 import go.game.Game;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SimpleDBFacade implements DBFacade {
     TreeMap<String, String> users = new TreeMap<>();

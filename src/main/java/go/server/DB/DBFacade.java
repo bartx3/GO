@@ -1,8 +1,7 @@
 package go.server.DB;
 
 import go.communications.Credentials;
-import go.game.*;
-
+import go.game.Game;
 
 import java.util.ArrayList;
 
