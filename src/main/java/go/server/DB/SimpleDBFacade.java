@@ -1,6 +1,6 @@
 package go.server.DB;
 
-import go.communications.Credentials;
+import go.communications.PlayerCredentials;
 import go.game.Game;
 
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ public class SimpleDBFacade implements DBFacade {
     TreeMap<Long, Game> games = new TreeMap<>();
 
     @Override
-    public synchronized boolean register(Credentials credentials) {
-        if (users.containsKey(credentials.username)) {
+    public synchronized boolean register(PlayerCredentials credentials) {
+        if (users.containsKey(credentials.getUsername())) {
             return false;
         }
         try {
-            users.put(credentials.username, credentials.password);
+            users.put(credentials.getUsername(), credentials.getPassword());
             return true;
         } catch (Exception e) {
             return false;
@@ -25,11 +25,11 @@ public class SimpleDBFacade implements DBFacade {
     }
 
     @Override
-    public synchronized boolean login(Credentials credentials) {
-        if (!users.containsKey(credentials.username)) {
+    public synchronized boolean login(PlayerCredentials credentials) {
+        if (!users.containsKey(credentials.getUsername())) {
             return false;
         }
-        return checkPassword(credentials.username, credentials.password);
+        return checkPassword(credentials.getUsername(), credentials.getPassword());
     }
 
     @Override
@@ -52,6 +52,17 @@ public class SimpleDBFacade implements DBFacade {
     }
 
     @Override
+    public synchronized long newGame(String player1, String player2, int size) {
+        try {
+            long id = generateGameId();
+            games.put(id, new Game(id, player1, player2, size));
+            return id;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @Override
     public synchronized ArrayList<Long> getGameIds() {
         try {
             ArrayList<Long> ids = new ArrayList<>();
@@ -63,6 +74,8 @@ public class SimpleDBFacade implements DBFacade {
             return null;
         }
     }
+
+
 
     @Override
     public synchronized ArrayList<String> getUsernames() {
@@ -77,8 +90,7 @@ public class SimpleDBFacade implements DBFacade {
         }
     }
 
-    @Override
-    public synchronized long generateGameId() {
+    private synchronized long generateGameId() {
         try {
             return games.lastKey() + 1;
         } catch (Exception e) {
