@@ -6,18 +6,23 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.SynchronousQueue;
 
 public class SocketFacade {
     protected static final System.Logger logger = System.getLogger(SocketFacade.class.getName());
     protected Socket socket;
     protected ObjectInputStream in;
     protected ObjectOutputStream out;
+    protected SynchronousQueue<Serializable> inQueue;
 
     public SocketFacade(Socket socket) throws SocketException {
         try{
-        this.socket = socket;
-        this.out = new ObjectOutputStream(socket.getOutputStream());
-        this.in = new ObjectInputStream(socket.getInputStream());
+            this.inQueue = new SynchronousQueue<>();
+            this.socket = socket;
+            this.out = new ObjectOutputStream(socket.getOutputStream());
+            this.in = new ObjectInputStream(socket.getInputStream());
+            InputListener inputListener = new InputListener(in, inQueue);
+            inputListener.start();
         }
         catch (Exception e){
             logger.log(System.Logger.Level.ERROR, e.getMessage());
@@ -26,7 +31,7 @@ public class SocketFacade {
     }
 
     public synchronized void send(Serializable obj) throws SocketException {
-        try{
+        try {
             out.writeObject(obj);
         }
         catch (Exception e){
@@ -41,8 +46,8 @@ public class SocketFacade {
     }
 
     public synchronized Serializable receive() throws SocketException {
-        try{
-            Serializable obj = (Serializable) in.readObject();
+        try {
+            Serializable obj = (Serializable) inQueue.take();
             logger.log(System.Logger.Level.INFO, "Received object");
             return obj;
         }
@@ -55,11 +60,31 @@ public class SocketFacade {
         return socket.isConnected();
     }
 
-    public boolean dataAvailable() throws SocketException {
-        try {
-            return in.available() > 0;
-        } catch (IOException e) {
-            throw new SocketException();
+    public boolean dataAvailable() {
+        return !inQueue.isEmpty();
+    }
+}
+
+class InputListener extends Thread {
+
+    ObjectInputStream stream;
+    final SynchronousQueue<Serializable> queue;
+    public InputListener(ObjectInputStream stream, SynchronousQueue<Serializable> queue) {
+        this.stream = stream;
+        this.queue = queue;
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                Serializable response = (Serializable) stream.readObject();
+                synchronized (queue) {
+                    queue.put(response);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
