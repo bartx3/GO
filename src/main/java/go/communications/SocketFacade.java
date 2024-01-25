@@ -27,6 +27,10 @@ public class SocketFacade {
 
     public synchronized void send(Serializable obj) throws SocketException {
         try {
+            logger.log(System.Logger.Level.INFO, "Sending object");
+            if (socket.isClosed()){
+                logger.log(System.Logger.Level.ERROR, "Dupaprint");
+            }
             out.writeObject(obj);
         }
         catch (Exception e){

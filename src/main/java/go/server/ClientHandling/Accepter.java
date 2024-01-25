@@ -28,7 +28,6 @@ public class Accepter extends Thread {
                 logger.log(System.Logger.Level.INFO, "New client connected");
             } catch (IOException e) {
                 logger.log(System.Logger.Level.ERROR, e.getMessage());
-                throw new RuntimeException(e);
             }
         }
     }

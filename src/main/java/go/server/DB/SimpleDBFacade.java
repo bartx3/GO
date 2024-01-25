@@ -1,6 +1,6 @@
 package go.server.DB;
 
-import go.communications.PlayerCredentials;
+import go.communications.Credentials;
 import go.game.Game;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class SimpleDBFacade implements DBFacade {
     TreeMap<Long, Game> games = new TreeMap<>();
 
     @Override
-    public synchronized boolean register(PlayerCredentials credentials) {
+    public synchronized boolean register(Credentials credentials) {
         if (users.containsKey(credentials.getUsername())) {
             return false;
         }
@@ -25,7 +25,7 @@ public class SimpleDBFacade implements DBFacade {
     }
 
     @Override
-    public synchronized boolean login(PlayerCredentials credentials) {
+    public synchronized boolean login(Credentials credentials) {
         if (!users.containsKey(credentials.getUsername())) {
             return false;
         }

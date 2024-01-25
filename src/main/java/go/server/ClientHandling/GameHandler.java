@@ -5,7 +5,7 @@ import go.game.Game;
 import go.server.DB.DBFacade;
 
 public class GameHandler extends Thread {
-    static final DBFacade db = go.server.Server.db;
+    static final DBFacade db = go.server.Server.getDB();
     SocketFacade player1;
     SocketFacade player2;
     String pl1name;

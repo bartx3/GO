@@ -1,15 +1,15 @@
 package go.communications;
 
-public class PlayerCredentials {
+public class Credentials implements java.io.Serializable {
     private final String username;
     private final String password;
 
-    public PlayerCredentials(String username, String password) {
+    public Credentials(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public PlayerCredentials(String username) {
+    public Credentials(String username) {
         this.username = username;
         this.password = null;
     }
