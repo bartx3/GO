@@ -6,6 +6,7 @@ import go.server.ClientHandling.comandStrategies.CommandStrategy;
 import go.server.ClientHandling.comandStrategies.Exit;
 import go.server.ClientHandling.comandStrategies.History;
 import go.server.ClientHandling.comandStrategies.PlayGame;
+import go.server.Server;
 
 import java.net.Socket;
 import java.net.SocketException;
@@ -36,7 +37,9 @@ public class ClientHandler extends Thread {
     @Override
     public void run() {
         try {
+            Server.logger.log(System.Logger.Level.INFO, "New Client handler started");
             LoginHandler loginHandler = new LoginHandler(socket);
+            Server.logger.log(System.Logger.Level.INFO, "Starting new loginhandler");
             Thread loginthread = new Thread(loginHandler);
             loginthread.start();
             loginthread.join();

@@ -3,6 +3,7 @@ package go.server.ClientHandling;
 import go.communications.Credentials;
 import go.communications.SocketFacade;
 import go.server.DB.DBFacade;
+import go.server.Server;
 
 import java.net.SocketException;
 
@@ -22,13 +23,19 @@ public class LoginHandler implements Runnable {
 
     @Override
     public void run() {
+        Server.logger.log(System.Logger.Level.INFO, "running login handler");
         do {
             try {
                 Credentials credentials = (Credentials) socket.receive();
-                db.login(credentials);
+                if (db.login(credentials) || db.register(credentials))
+                {
+                    this.name = credentials.getUsername();
+                    break;
+                }
             } catch (ClassCastException | SocketException e) {
                 throw new RuntimeException(e);
             }
         } while (true);
+        Server.logger.log(System.Logger.Level.INFO, "client " + name + " logged in");
     }
 }

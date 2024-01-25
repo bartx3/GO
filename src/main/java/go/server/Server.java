@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Server {
+    public static final System.Logger logger = System.getLogger("server");
     static final HashMap<Integer, Pairer> pairers = new HashMap<>();
     static final HashMap<Integer, Accepter> accepters = new HashMap<>();
     static final DBFacade db = new SimpleDBFacade();

@@ -7,6 +7,7 @@ import go.communications.SocketFacade;
 import java.net.SocketException;
 
 public class LoginHandler implements Runnable {
+    static System.Logger logger = System.getLogger("login");
     String name;
     UI ui;
     SocketFacade server;
@@ -17,6 +18,7 @@ public class LoginHandler implements Runnable {
     }
     @Override
     public void run() {
+        logger.log(System.Logger.Level.INFO, "Running login");
         Boolean success = false;
         do {
             Credentials credentials = ui.getCredentials();

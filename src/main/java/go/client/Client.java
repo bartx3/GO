@@ -50,17 +50,18 @@ public class Client extends Application {
     }
 
     public static void main(String[] args) {
-        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT)) {
+        try {
+            Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
             //socket.connect(socket.getRemoteSocketAddress());
+            server = new SocketFacade(socket);
             if (!socket.isConnected()) {
                 logger.log(System.Logger.Level.ERROR, "Could not connect to server");
                 return;
             }
-            server = new SocketFacade(socket);
+            launch();
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, e.getMessage());
             return;
         }
-        launch();
     }
 }

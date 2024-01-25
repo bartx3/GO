@@ -14,6 +14,7 @@ public class SocketFacade {
     protected ObjectOutputStream out;
 
     public SocketFacade(Socket socket) throws SocketException {
+        logger.log(System.Logger.Level.INFO, "Create new socket handler");
         try{
             this.socket = socket;
             this.out = new ObjectOutputStream(socket.getOutputStream());
@@ -23,6 +24,7 @@ public class SocketFacade {
             logger.log(System.Logger.Level.ERROR, e.getMessage());
             throw new SocketException();
         }
+        logger.log(System.Logger.Level.INFO, "New Socket created");
     }
 
     public synchronized void send(Serializable obj) throws SocketException {
