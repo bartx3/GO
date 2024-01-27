@@ -17,7 +17,9 @@ public interface UI {
 
     void promptMessage(String message);
 
-    Move getMove();
+    Move getMove(GameState gameState);
+
+    void showGameList(String[] games);
 
     void showWinner(String winner);
 

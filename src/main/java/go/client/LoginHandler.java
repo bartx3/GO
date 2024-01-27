@@ -6,8 +6,9 @@ import go.communications.SocketFacade;
 
 import java.net.SocketException;
 
+import static go.client.Client.logger;
+
 public class LoginHandler implements Runnable {
-    static System.Logger logger = System.getLogger("login");
     String name;
     UI ui;
     SocketFacade server;

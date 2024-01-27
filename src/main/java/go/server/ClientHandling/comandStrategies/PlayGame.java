@@ -1,5 +1,6 @@
 package go.server.ClientHandling.comandStrategies;
 
+import go.communications.Request;
 import go.communications.SocketFacade;
 import go.server.ClientHandling.ClientHandler;
 import go.server.ClientHandling.GameHandler;
@@ -17,15 +18,17 @@ public class PlayGame implements CommandStrategy{
             throw new RuntimeException("socket is null");
         }
         try {
+            int size = 0;
             try {
-                Integer.parseInt(args[0]);
+                size = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
-                socket.send("Invalid size");
+                Request request = new Request("error", "Invalid size");
+                socket.send(request);
             }
-            int size = Integer.parseInt(args[0]);
             Pairer pairer = Server.getPairer(size);
             if (pairer == null) {
-                socket.send("Invalid size");
+                Request request = new Request("error", "Unavailable size");
+                socket.send(request);
                 return null;
             }
             GameHandler gameHandler = pairer.addPlayer(clientHandler.getName(), size, socket);
