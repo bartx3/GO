@@ -13,6 +13,8 @@ public class GameState implements java.io.Serializable {
 
     final int turn;
 
+    public final boolean finished;
+
     public int getTurn() {
         return turn;
     }
@@ -31,6 +33,7 @@ public class GameState implements java.io.Serializable {
         this.turn = 0;
         this.player1Captures = 0;
         this.player2Captures = 0;
+        this.finished = false;
     }
 
     public GameState(int size, fieldState[][] board, int turn, int player1Captures, int player2Captures) {
@@ -39,6 +42,16 @@ public class GameState implements java.io.Serializable {
         this.turn = turn;
         this.player1Captures = player1Captures;
         this.player2Captures = player2Captures;
+        this.finished = false;
+    }
+
+    public GameState(int size, fieldState[][] board, int turn, int player1Captures, int player2Captures, boolean finished) {
+        this.size = size;
+        this.board = board;
+        this.turn = turn;
+        this.player1Captures = player1Captures;
+        this.player2Captures = player2Captures;
+        this.finished = finished;
     }
 
     public int countScoreP1() {

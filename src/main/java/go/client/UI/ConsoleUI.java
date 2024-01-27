@@ -1,7 +1,7 @@
 package go.client.UI;
 
-import go.communications.Packet;
 import go.communications.Credentials;
+import go.communications.Request;
 import go.game.*;
 
 import java.util.Scanner;
@@ -89,12 +89,12 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public Packet getCommand() {
+    public Request getCommand() {
         System.out.println("Enter your command: ");
         String command = getLine();
         String[] commandArray = command.split(" ");
         try {
-            return new Packet(commandArray[0], commandArray[1]);
+            return new Request(commandArray[0], commandArray[1]);
         } catch (Exception e) {
             System.out.println("Wrong command format");
         }

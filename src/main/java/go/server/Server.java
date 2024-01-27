@@ -1,41 +1,34 @@
 package go.server;
 
-import go.server.ClientHandler.*;
-import go.server.DB.*;
+import go.server.ClientHandling.Accepter;
+import go.server.ClientHandling.Pairer;
+import go.server.DB.DBFacade;
+import go.server.DB.SimpleDBFacade;
 
-import java.net.*;
-import java.util.Collections;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
-
-/**
- * Our main class of our server. Gets control of our client sockets and gives to the ClientOnlineHandlers
- */
 public class Server {
-    public static final DBFacade db = new SimpleDBFacade();
-    static final System.Logger logger = System.getLogger("ServerLogger");
-    public static final Map<String, SessionData> usersOnline = Collections.synchronizedMap( new HashMap<>());
-
-    public static void main(String[] args) {
-        final int PORT = 8080;
-
-        ServerSocket socket;
-        try {
-            socket = new ServerSocket(PORT);
-
-            while(true) {
-                logger.log(System.Logger.Level.INFO, "Ready for new client");
-                Socket client = socket.accept();
-                logger.log(System.Logger.Level.INFO, "Client connected");
-                Thread t = new Thread(new ClientHandler(client));
-                logger.log(System.Logger.Level.INFO, "Client handler created");
-                t.start();
-            }
+    public static final System.Logger logger = System.getLogger("server");
+    static final HashMap<Integer, Pairer> pairers = new HashMap<>();
+    static final HashMap<Integer, Accepter> accepters = new HashMap<>();
+    static final DBFacade db = new SimpleDBFacade();
+    public static void main(String[] args) throws IOException {
+        accepters.put(8080, new Accepter(8080));
+        pairers.put(19, new Pairer(19));
+        for (Accepter accepter : accepters.values()) {
+            accepter.start();
         }
-        catch(Exception e) {
-            logger.log(System.Logger.Level.ERROR, e.getMessage());
+        for (Pairer pairer : pairers.values()) {
+            pairer.start();
         }
+    }
 
+    public static Pairer getPairer(int size) {
+        return pairers.get(size);
+    }
+
+    public static DBFacade getDB() {
+        return db;
     }
 }

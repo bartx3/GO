@@ -1,42 +1,67 @@
 package go.client;
 
 import go.client.UI.ConsoleUI;
+import go.client.UI.GUI.GUI;
 import go.client.UI.UI;
+import go.communications.Request;
 import go.communications.SocketFacade;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.Socket;
-import java.util.concurrent.Semaphore;
 
-public class Client {
+public class Client extends Application {
     private static final String SERVER_ADDRESS = "localhost";
     private static final int SERVER_PORT = 8080;
-    public static void main(String[] args)
-    {
-        UI ui = new ConsoleUI();
-        try
-        {
+    private static System.Logger logger = System.getLogger("ClientLogger");
+    private static SocketFacade server;
+    @Override
+    public void start(Stage stage) throws IOException {
+        if (server.getSocket().isClosed()) {
+            logger.log(System.Logger.Level.ERROR, "Could not connect to server");
+            return;
+        }
+        UI ui = new ConsoleUI(); //new GUI(stage);
+        LoginHandler loginHandler = new LoginHandler(ui, server);
+        Thread loginthread = new Thread(loginHandler);
+        loginthread.start();
+        try {
+            loginthread.join();
+        } catch (InterruptedException e) {
+            logger.log(System.Logger.Level.ERROR, e.getMessage());
+            logger.log(System.Logger.Level.ERROR, "Interrupted while waiting for login thread");
+            return;
+        }
+        if (loginHandler.name == null) {
+            logger.log(System.Logger.Level.ERROR, "Could not log in");
+            return;
+        }
+        while (true) {
+            Request request = ui.getCommand();
+            server.send(request);
+            if (request.command.equals("exit")) {
+                break;
+            }
+        }
+
+    }
+
+    public static void main(String[] args) {
+        try {
             Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-            if (!socket.isConnected())
-            {
-                ui.showErrorMessage("Could not connect to server");
+            //socket.connect(socket.getRemoteSocketAddress());
+            server = new SocketFacade(socket);
+            if (!socket.isConnected()) {
+                logger.log(System.Logger.Level.ERROR, "Could not connect to server");
                 return;
             }
-            SocketFacade socketFacade = new SocketFacade(socket);
-            LoginHandler loginHandler = new LoginHandler(socketFacade, ui);
-            loginHandler.run();
-
-            Semaphore SocketSemaphore = new Semaphore(1);
-            UIMenuListener uiMenuListener = new UIMenuListener(socketFacade, SocketSemaphore, ui);
-            uiMenuListener.start();
-            ServerListener serverListener = new ServerListener(socketFacade, SocketSemaphore, uiMenuListener, ui);
-            serverListener.start();
-
-
-            socket.close();
-        }
-        catch (Exception e)
-        {
-            ui.showErrorMessage("Error happened while connecting to server");
+            launch();
+        } catch (Exception e) {
+            logger.log(System.Logger.Level.ERROR, e.getMessage());
+            return;
         }
     }
 }

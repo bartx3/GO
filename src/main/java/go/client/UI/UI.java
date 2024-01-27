@@ -1,7 +1,7 @@
 package go.client.UI;
 
-import go.communications.Packet;
 import go.communications.Credentials;
+import go.communications.Request;
 import go.game.*;
 
 /**
@@ -23,7 +23,7 @@ public interface UI {
 
     void showWinner(String winner);
 
-    Packet getCommand();
+    Request getCommand();
 
     boolean getConfirmation(String message);
 }

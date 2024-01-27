@@ -3,50 +3,43 @@ package go.client;
 import go.client.UI.UI;
 import go.communications.Credentials;
 import go.communications.SocketFacade;
-import go.communications.loginException;
 
 import java.net.SocketException;
 
 public class LoginHandler implements Runnable {
-
-    protected SocketFacade socket;
-    protected UI ui;
-    protected Credentials credentials;
-
-    public LoginHandler(SocketFacade socket, UI ui) throws Exception {
-        this.socket = socket;
+    static System.Logger logger = System.getLogger("login");
+    String name;
+    UI ui;
+    SocketFacade server;
+    public LoginHandler(UI ui, SocketFacade server) {
         this.ui = ui;
+        this.server = server;
+        this.name = null;
     }
-
     @Override
     public void run() {
-        try {
-            // try login until successful
-            while (true) {
-                try {
-                    login();
-                    break;
-                } catch (loginException e) {
-                    ui.showErrorMessage("Login failed");
+        logger.log(System.Logger.Level.INFO, "Running login");
+        Boolean success = false;
+        do {
+            Credentials credentials = ui.getCredentials();
+            try {
+                server.send(credentials);
+                success = (Boolean) server.receive();
+                if (!success) {
+                    ui.promptMessage("Login failed, try again");
+                } else {
+                    name = credentials.getUsername();
                 }
+            } catch (SocketException e) {
+                throw new RuntimeException(e);
             }
 
+        } while (!success);
 
-        }
-        catch (Exception e) {       // Something happens to socket itself
-            ui.showErrorMessage("Error happened while connecting to server");
-            ui.showErrorMessage(e.getMessage());
-        }
+        ui.promptMessage("Login as " + name + " successful");
     }
 
-    public void login() throws loginException, SocketException
-    {
-        credentials = ui.getCredentials();
-        socket.send(credentials);
-        Object response = socket.receive();
-        if (!(response instanceof Boolean) || !((Boolean) response))
-            throw new loginException();
-        else
-            ui.promptMessage("Login successful");
+    public String getName() {
+        return name;
     }
 }

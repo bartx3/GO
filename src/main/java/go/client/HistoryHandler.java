@@ -1,6 +1,6 @@
 package go.client;
 
-public class GameHandler implements Runnable{
+public class HistoryHandler implements Runnable {
     @Override
     public void run() {
         try {
