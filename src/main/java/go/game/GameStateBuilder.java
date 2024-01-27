@@ -6,7 +6,8 @@ public class GameStateBuilder {
     private int turn;
     private int player1Captures;
     private int player2Captures;
-    private boolean finished;
+    private boolean finished = false;
+    private Colour activeplayer;
 
     public GameStateBuilder(GameState gameState) {
         this.size = gameState.size;
@@ -46,8 +47,13 @@ public class GameStateBuilder {
         return this;
     }
 
+    public GameStateBuilder setActivePlayer(Colour activeplayer) {
+        this.activeplayer = activeplayer;
+        return this;
+    }
+
     public GameState createGameState() {
-        return new GameState(size, board, turn, player1Captures, player2Captures, );
+        return new GameState(size, board, turn, player1Captures, player2Captures, finished, activeplayer);
     }
 
     private boolean fastCheckMove(Move move) {
@@ -91,7 +97,7 @@ public class GameStateBuilder {
     }
 
     public void MakeMove(Move move, boolean whiteturn) {
-        if (whiteturn)
+        if (!whiteturn)
             turn++;
         if (move.isPass)
             return;

@@ -93,11 +93,19 @@ public class ConsoleUI implements UI {
         System.out.println("Enter your command: ");
         String command = getLine();
         String[] commandArray = command.split(" ");
+        //command array without first element
+        String[] args = new String[commandArray.length - 1];
+        System.arraycopy(commandArray, 1, args, 0, commandArray.length - 1);
         try {
-            return new Request(commandArray[0], commandArray[1]);
+            return new Request(commandArray[0], args);
         } catch (Exception e) {
             System.out.println("Wrong command format");
         }
         return null;
+    }
+
+    @Override
+    public void updateBoard(GameState gameState) {
+        showGameState(gameState);
     }
 }

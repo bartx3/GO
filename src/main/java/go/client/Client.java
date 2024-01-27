@@ -3,6 +3,8 @@ package go.client;
 import go.client.UI.ConsoleUI;
 import go.client.UI.GUI.GUI;
 import go.client.UI.UI;
+import go.client.comandStrategies.CommandStrategy;
+import go.client.comandStrategies.CommandStrategyFactory;
 import go.communications.Request;
 import go.communications.SocketFacade;
 import javafx.application.Application;
@@ -21,6 +23,7 @@ public class Client extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         UI ui = new ConsoleUI(); //new GUI(stage);
+        CommandStrategyFactory csf = new CommandStrategyFactory();
         if (server.getSocket().isClosed()) {
             ui.showErrorMessage("Could not connect to server");
             return;
@@ -41,10 +44,19 @@ public class Client extends Application {
         }
         while (true) {
             Request request = ui.getCommand();
-            server.send(request);
+            if (request == null) {
+                continue;
+            }
             if (request.command.equals("exit")) {
                 break;
             }
+            CommandStrategy commandStrategy = csf.getCommandStrategy(request.command);
+            if (commandStrategy == null) {
+                ui.showErrorMessage("Invalid command");
+                continue;
+            }
+            server.send(request);
+            commandStrategy.apply(server, request.args, ui);
         }
 
     }

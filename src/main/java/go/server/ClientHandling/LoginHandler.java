@@ -7,6 +7,8 @@ import go.server.Server;
 
 import java.net.SocketException;
 
+import static go.server.Server.logger;
+
 public class LoginHandler implements Runnable {
     SocketFacade socket;
     String name;
@@ -23,19 +25,23 @@ public class LoginHandler implements Runnable {
 
     @Override
     public void run() {
-        Server.logger.log(System.Logger.Level.INFO, "running login handler");
+        logger.log(System.Logger.Level.INFO, "running login handler");
         do {
             try {
                 Credentials credentials = (Credentials) socket.receive();
-                if (db.login(credentials) || db.register(credentials))
+                Boolean success = (db.login(credentials) || db.register(credentials));
+                socket.send(success);
+                if (success)
                 {
+                    logger.log(System.Logger.Level.INFO, "client logged in");
                     this.name = credentials.getUsername();
                     break;
                 }
+                logger.log(System.Logger.Level.INFO, "client failed to log in");
             } catch (ClassCastException | SocketException e) {
                 throw new RuntimeException(e);
             }
         } while (true);
-        Server.logger.log(System.Logger.Level.INFO, "client " + name + " logged in");
+        logger.log(System.Logger.Level.INFO, "client " + name + " logged in");
     }
 }

@@ -52,4 +52,9 @@ public class GUI implements UI {
         return null;
     }
 
+    @Override
+    public void updateBoard(GameState gameState) {
+
+    }
+
 }
