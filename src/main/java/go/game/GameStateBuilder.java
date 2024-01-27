@@ -2,10 +2,11 @@ package go.game;
 
 public class GameStateBuilder {
     private int size;
-    private GameState.fieldState[][] board;
+    private Colour[][] board;
     private int turn;
     private int player1Captures;
     private int player2Captures;
+    private boolean finished;
 
     public GameStateBuilder(GameState gameState) {
         this.size = gameState.size;
@@ -20,7 +21,7 @@ public class GameStateBuilder {
         return this;
     }
 
-    public GameStateBuilder setBoard(GameState.fieldState[][] board) {
+    public GameStateBuilder setBoard(Colour[][] board) {
         this.board = board;
         return this;
     }
@@ -39,9 +40,14 @@ public class GameStateBuilder {
         this.player2Captures = player2Captures;
         return this;
     }
+    
+    public GameStateBuilder setFinished(boolean finished) {
+        this.finished = finished;
+        return this;
+    }
 
     public GameState createGameState() {
-        return new GameState(size, board, turn, player1Captures, player2Captures);
+        return new GameState(size, board, turn, player1Captures, player2Captures, );
     }
 
     private boolean fastCheckMove(Move move) {
@@ -51,15 +57,15 @@ public class GameStateBuilder {
         if (move.x < 0 || move.x >= size || move.y < 0 || move.y >= size) {
             return false;
         }
-        return board[move.x][move.y] == GameState.fieldState.EMPTY;
+        return board[move.x][move.y] == Colour.EMPTY;
     }
 
-    private int countBreaths(int x, int y, GameState.fieldState color) {
+    private int countBreaths(int x, int y, Colour color) {
         int breaths = 0;
         if (x < 0 || x >= size || y < 0 || y >= size) {
             return 0;
         }
-        if (board[x][y] == GameState.fieldState.EMPTY) {
+        if (board[x][y] == Colour.EMPTY) {
             return 1;
         }
         if (board[x][y] != color) {
@@ -90,18 +96,18 @@ public class GameStateBuilder {
         if (move.isPass)
             return;
 
-        board[move.x][move.y] = whiteturn ? GameState.fieldState.WHITE : GameState.fieldState.BLACK;
+        board[move.x][move.y] = whiteturn ? Colour.WHITE : Colour.BLACK;
         int[][] breaths = countAllBreaths();
         //Najpierw zbijamy przeciwnika
         for (int i = 0; i < size; i++) {
             for (int j = 0 ; j < size; j++) {
                 if (breaths[i][j] == 0) {
-                    if (board[i][j] == GameState.fieldState.BLACK && whiteturn) {
-                        board[i][j] = GameState.fieldState.EMPTY;
+                    if (board[i][j] == Colour.BLACK && whiteturn) {
+                        board[i][j] = Colour.EMPTY;
                         player1Captures++;
                     }
-                    if (board[i][j] == GameState.fieldState.WHITE && !whiteturn) {
-                        board[i][j] = GameState.fieldState.EMPTY;
+                    if (board[i][j] == Colour.WHITE && !whiteturn) {
+                        board[i][j] = Colour.EMPTY;
                         player2Captures++;
                     }
                 }
@@ -112,12 +118,12 @@ public class GameStateBuilder {
         for (int i = 0; i < size; i++) {
             for (int j = 0 ; j < size; j++) {
                 if (breaths[i][j] == 0) {
-                    if (board[i][j] == GameState.fieldState.BLACK) {
-                        board[i][j] = GameState.fieldState.EMPTY;
+                    if (board[i][j] == Colour.BLACK) {
+                        board[i][j] = Colour.EMPTY;
                         player1Captures++;
                     }
-                    if (board[i][j] == GameState.fieldState.WHITE) {
-                        board[i][j] = GameState.fieldState.EMPTY;
+                    if (board[i][j] == Colour.WHITE) {
+                        board[i][j] = Colour.EMPTY;
                         player2Captures++;
                     }
                 }
@@ -129,7 +135,7 @@ public class GameStateBuilder {
         if (move.isPass) {
             return true;
         }
-        return board[move.x][move.y] != GameState.fieldState.EMPTY;
+        return board[move.x][move.y] != Colour.EMPTY;
     }
 
     public boolean performAndCheckMove(Move move, boolean whiteturn) {

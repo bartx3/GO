@@ -16,15 +16,15 @@ import java.net.Socket;
 public class Client extends Application {
     private static final String SERVER_ADDRESS = "localhost";
     private static final int SERVER_PORT = 8080;
-    private static System.Logger logger = System.getLogger("ClientLogger");
+    public static System.Logger logger = System.getLogger("ClientLogger");
     private static SocketFacade server;
     @Override
     public void start(Stage stage) throws IOException {
+        UI ui = new ConsoleUI(); //new GUI(stage);
         if (server.getSocket().isClosed()) {
-            logger.log(System.Logger.Level.ERROR, "Could not connect to server");
+            ui.showErrorMessage("Could not connect to server");
             return;
         }
-        UI ui = new ConsoleUI(); //new GUI(stage);
         LoginHandler loginHandler = new LoginHandler(ui, server);
         Thread loginthread = new Thread(loginHandler);
         loginthread.start();

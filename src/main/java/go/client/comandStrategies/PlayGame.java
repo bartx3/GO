@@ -3,11 +3,11 @@ package go.client.comandStrategies;
 import go.client.UI.UI;
 import go.communications.Request;
 import go.communications.SocketFacade;
+import go.game.Colour;
 import go.game.GameState;
 import go.game.Move;
 
 import java.net.SocketException;
-import java.util.function.BiFunction;
 
 public class PlayGame implements CommandStrategy {
 
@@ -16,27 +16,24 @@ public class PlayGame implements CommandStrategy {
         try {
             Request request = new Request("play", strings);
             socketFacade.send(request);
-            String s = (String) socketFacade.receive();
-            ui.promptMessage("Opponent found. Starting game against " + s);
+            Request s = (Request) socketFacade.receive();
             if (s.equals("Invalid size")) {
+                ui.showErrorMessage("Invalid size");
                 return null;
             }
+            ui.promptMessage("Opponent found. Starting game against " + s);
+            Colour playerColour = (Colour) socketFacade.receive();
+            ui.promptMessage("You are playing as " + playerColour);
             while (true) {
-                Object o = socketFacade.receive();
-                if (o instanceof GameState) {
-                    ui.showGameState((GameState) o);
-                    if (((GameState) o).finished) {
-                        break;
-                    }
-                } else if (o instanceof String) {
-                    ui.showErrorMessage((String) o);
-                } else {
-                    throw new RuntimeException("Unexpected object received");
-                }
-                Move move = ui.getMove();
-                socketFacade.send(move);
-                if (move.giveUp) {
+                GameState gameState = (GameState) socketFacade.receive();
+                ui.updateBoard(gameState);
+                if (gameState.finished) {
+                    ui.promptMessage("Game finished");
                     break;
+                }
+                if (gameState.getCurrentPlayer() == playerColour) {
+                    Move move = ui.getMove();
+                    socketFacade.send(move);
                 }
             }
         } catch (SocketException | ClassCastException e) {

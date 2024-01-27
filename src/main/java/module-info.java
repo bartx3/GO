@@ -1,4 +1,4 @@
-module go.go {
+module go.client {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -9,4 +9,8 @@ module go.go {
     opens go.client.UI.GUI to javafx.fxml;
     exports go.client.UI;
     opens go.client.UI to javafx.fxml;
+    exports go.client.comandStrategies;
+    opens go.client.comandStrategies to javafx.fxml;
+    exports go.communications;
+    exports go.game;
 }
