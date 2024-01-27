@@ -19,6 +19,9 @@ public class ClientHandler extends Thread {
     private static final HashMap<String, CommandStrategy> commands = new HashMap<>();
     void setupCommands()
     {
+        if (!commands.isEmpty()) {
+            return;
+        }
         synchronized (commands) {
             if (!commands.isEmpty()) {
                 return;

@@ -19,11 +19,7 @@ public interface UI {
 
     Move getMove();
 
-    void showUserList(String[] games);
-
     void showWinner(String winner);
 
     Request getCommand();
-
-    boolean getConfirmation(String message);
 }
