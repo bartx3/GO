@@ -3,7 +3,6 @@ package go.server.ClientHandling;
 import go.communications.Request;
 import go.communications.SocketFacade;
 import go.server.ClientHandling.comandStrategies.CommandStrategy;
-import go.server.ClientHandling.comandStrategies.Exit;
 import go.server.ClientHandling.comandStrategies.History;
 import go.server.ClientHandling.comandStrategies.PlayGame;
 import go.server.Server;
@@ -27,7 +26,6 @@ public class ClientHandler extends Thread {
                 return;
             }
             commands.put("play", new PlayGame());
-            commands.put("exit", new Exit());
             commands.put("history", new History());
         }
     }

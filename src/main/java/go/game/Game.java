@@ -40,6 +40,11 @@ public class Game {
         }
     }
 
+    public void init() {
+        gameStates = new ArrayList<>();
+        gameStates.add(new GameState(size, new Colour[size][size], 0, 0, 0, false, Colour.BLACK));
+    }
+
     public int getGameStateCount() {
         return gameStates.size();
     }

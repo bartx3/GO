@@ -44,7 +44,7 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public Move getMove() {
+    public Move getMove(GameState gameState) {
         do {
             System.out.println("Enter your move: ");
             String move = getLine();
@@ -64,8 +64,8 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public void showUserList(String[] games) {
-        System.out.println("Available players: ");
+    public void showGameList(String[] games) {
+        System.out.println("Available games: ");
         for (String game : games) {
             System.out.println(game);
         }
@@ -99,16 +99,5 @@ public class ConsoleUI implements UI {
             System.out.println("Wrong command format");
         }
         return null;
-    }
-
-    @Override
-    public boolean getConfirmation(String message) {
-        System.out.println(message);
-        String confirmation = getLine();
-        if (confirmation.equals("y")) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
