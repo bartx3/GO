@@ -28,7 +28,7 @@ public class Logging {
             password=txtfield_password.getText();
             setPassword(password);
 
-            Choice choose = new Choice();
+            SceneManager.setScene("choice.fxml");
 
         } catch (Exception e) {
             // TODO: handle exception

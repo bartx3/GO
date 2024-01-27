@@ -18,7 +18,8 @@ public class Welcome {
     }
     public void btnWelcome(ActionEvent event){
         try {
-            Logging log_in=new Logging();
+            stage.close();
+            SceneManager.setScene("logging.fxml");
         } catch (Exception e) {
             // TODO: handle exception
         }
