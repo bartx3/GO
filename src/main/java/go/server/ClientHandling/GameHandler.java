@@ -1,10 +1,12 @@
 package go.server.ClientHandling;
 
+//import go.client.UI.ConsoleUI;
 import go.communications.Request;
 import go.communications.SocketFacade;
 import go.game.*;
 import go.server.DB.DBFacade;
 
+import java.io.Serializable;
 import java.net.SocketException;
 
 import static go.server.Server.logger;
@@ -45,13 +47,16 @@ public class GameHandler extends Thread {
             player2.send(Colour.WHITE);
             game.init();
             GameState gameState = game.getGameState(0);
+            //(new ConsoleUI()).showGameState(gameState);
             player1.send(gameState);
             player2.send(gameState);
 
             while (true) {
                 boolean validmove = false;
                 do {
-                    Move move = (Move) player1.receive();
+                    Serializable recieved = player1.receive();
+                    logger.log(System.Logger.Level.INFO, "Recieved " + recieved.toString());
+                    Move move = (Move) recieved;
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
                     validmove = gameStateBuilder.performAndCheckMove(move, false);
                     if (!validmove) {
@@ -96,10 +101,10 @@ public class GameHandler extends Thread {
         } catch (SocketException e) {
             try {
                 player1.send(new Request("error", "Opponent disconnected"));
+            } catch (SocketException ignore) {}
+            try {
                 player2.send(new Request("error", "Opponent disconnected"));
-            } catch (SocketException socketException) {
-                throw new RuntimeException(socketException);
-            }
+            } catch (SocketException ignore) {}
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);

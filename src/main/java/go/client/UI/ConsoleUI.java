@@ -15,6 +15,7 @@ public class ConsoleUI implements UI {
         clearscreen();
         logger.log(System.Logger.Level.INFO, "Wyświetlam stan gry");
         System.out.println("Turn: " + gameState.getTurn());
+        System.out.println("Active player: " + gameState.getActivePlayer());
         for (int i = 0; i < gameState.getBoard().length; i++) {
             for (int j = 0; j < gameState.getBoard()[i].length; j++) {
                 System.out.print(gameState.getBoard()[i][j]);

@@ -15,6 +15,8 @@ public class GameStateBuilder {
         this.turn = gameState.turn;
         this.player1Captures = gameState.player1Captures;
         this.player2Captures = gameState.player2Captures;
+        this.finished = gameState.finished;
+        this.activeplayer = gameState.activeplayer;
     }
 
     public GameStateBuilder setSize(int size) {

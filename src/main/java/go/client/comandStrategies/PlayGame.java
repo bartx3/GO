@@ -31,6 +31,7 @@ public class PlayGame implements CommandStrategy {
             ui.promptMessage("You are playing as " + playerColour);
             while (true) {
                 Serializable recieved = socketFacade.receive();
+                logger.log(System.Logger.Level.INFO, "Recieved " + recieved.toString());
                 if (recieved instanceof Request) {
                     Request r = (Request) recieved;
                     if (r.command.equals("error")) {
@@ -45,7 +46,7 @@ public class PlayGame implements CommandStrategy {
                 if (!(recieved instanceof GameState)) {
                     throw new RuntimeException("Unexpected object received");
                 }
-                GameState gameState = (GameState) socketFacade.receive();
+                GameState gameState = (GameState) recieved;
                 ui.updateBoard(gameState);
                 if (gameState.finished) {
                     String winner = (String) socketFacade.receive();

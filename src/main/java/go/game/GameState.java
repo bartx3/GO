@@ -59,7 +59,7 @@ public class GameState implements java.io.Serializable {
         this.player1Captures = player1Captures;
         this.player2Captures = player2Captures;
         this.finished = finished;
-        this.activeplayer = Colour.EMPTY;
+        this.activeplayer = activeplayer;
     }
 
 

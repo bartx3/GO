@@ -42,7 +42,13 @@ public class Game {
 
     public void init() {
         gameStates = new ArrayList<>();
-        gameStates.add(new GameState(size, new Colour[size][size], 0, 0, 0, false, Colour.BLACK));
+        Colour[][] board = new Colour[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; ++j) {
+                board[i][j] = Colour.EMPTY;
+            }
+        }
+        gameStates.add(new GameState(size, board, 0, 0, 0, false, Colour.BLACK));
     }
 
     public int getGameStateCount() {
