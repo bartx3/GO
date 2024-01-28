@@ -7,6 +7,8 @@ import go.client.comandStrategies.CommandStrategyFactory;
 import go.communications.Request;
 import go.communications.SocketFacade;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,12 +21,19 @@ public class Client extends Application {
     private static SocketFacade server;
     @Override
     public void start(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("UI/GUI/welcome.fxml"));
+        //Parent root = ;
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
+
         UI ui = new GUI(stage); //new GUI(stage);
         CommandStrategyFactory csf = new CommandStrategyFactory();
         if (server.getSocket().isClosed()) {
             ui.showErrorMessage("Could not connect to server");
             return;
         }
+
         LoginHandler loginHandler = new LoginHandler(ui, server);
         Thread loginthread = new Thread(loginHandler);
         loginthread.start();
@@ -40,6 +49,8 @@ public class Client extends Application {
             return;
         }
         while (true) {
+            //SceneManager.setScene("UI/GUI/welcome.fxml");
+
             Request request = ui.getCommand();
             if (request == null) {
                 continue;
