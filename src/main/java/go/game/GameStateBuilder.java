@@ -47,7 +47,7 @@ public class GameStateBuilder {
     }
 
     public GameState createGameState() {
-        return new GameState(size, board, turn, player1Captures, player2Captures, );
+        return new GameState(size, board, turn, player1Captures, player2Captures,);
     }
 
     private boolean fastCheckMove(Move move) {

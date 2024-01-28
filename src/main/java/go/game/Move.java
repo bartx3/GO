@@ -1,8 +1,8 @@
 package go.game;
 
 public class Move implements java.io.Serializable {
-    public final int x;
-    public final int y;
+    public final double x;
+    public final double y;
     //public final boolean whiteturn;
     public final boolean isPass;
     public final boolean giveUp;
@@ -10,8 +10,8 @@ public class Move implements java.io.Serializable {
     public Move(boolean isPass, boolean giveUp) {
         this.isPass = isPass;
         this.giveUp = giveUp;
-        this.x = -1;
-        this.y = -1;
+        this.x = -1.0;
+        this.y = -1.0;
     }
 
     public Move(int x, int y) {
