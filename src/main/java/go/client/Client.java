@@ -55,7 +55,6 @@ public class Client extends Application {
                 ui.showErrorMessage("Invalid command");
                 continue;
             }
-            server.send(request);
             commandStrategy.apply(server, request.args, ui);
         }
 
