@@ -1,6 +1,5 @@
 package go.client.UI.GUI;
 
-import go.game.Move;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +14,13 @@ public class gamePane {
     public void setStage(Stage stage){
         this.stage = stage;
     }
+
+    public String action="none";
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
     public gamePane(Stage stage, int n){
         for(int i=0;i<=n*n;i++){
             SquareBuilder square=new SquareBuilder(i,n);
@@ -24,9 +30,9 @@ public class gamePane {
         }
     }
     public void btnPass(ActionEvent event){
-        new Move(true,false);
+        setAction("pass");
     }
     public void btnSurrender(ActionEvent event){
-        new Move(false, true);
+        setAction("surrender");
     }
 }

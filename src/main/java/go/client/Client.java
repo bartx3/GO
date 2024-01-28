@@ -1,6 +1,5 @@
 package go.client;
 
-import go.client.UI.ConsoleUI;
 import go.client.UI.GUI.GUI;
 import go.client.UI.UI;
 import go.client.comandStrategies.CommandStrategy;
@@ -8,8 +7,6 @@ import go.client.comandStrategies.CommandStrategyFactory;
 import go.communications.Request;
 import go.communications.SocketFacade;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,7 +19,7 @@ public class Client extends Application {
     private static SocketFacade server;
     @Override
     public void start(Stage stage) throws IOException {
-        UI ui = new ConsoleUI(); //new GUI(stage);
+        UI ui = new GUI(stage); //new GUI(stage);
         CommandStrategyFactory csf = new CommandStrategyFactory();
         if (server.getSocket().isClosed()) {
             ui.showErrorMessage("Could not connect to server");

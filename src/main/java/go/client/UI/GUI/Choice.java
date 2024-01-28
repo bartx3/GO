@@ -15,9 +15,11 @@ public class Choice {
         this.stage = stage;
     }
 
+    public String command="co robic?";
     public void btn9(ActionEvent event){
         try {
             gamePane gamepane = new gamePane(stage,9);
+            setCommand("play");
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -25,6 +27,7 @@ public class Choice {
     public void btn13(ActionEvent event){
         try {
             gamePane gamepane = new gamePane(stage,13);
+            setCommand("play");
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -32,11 +35,25 @@ public class Choice {
     public void btn19(ActionEvent event){
         try {
             gamePane gamepane = new gamePane(stage,19);
+            setCommand("play");
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
     public void gameLoad(ActionEvent event){
+        try {
+            setCommand("history");
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
+
+    public String getCommand() {
+        return command;
     }
 }
