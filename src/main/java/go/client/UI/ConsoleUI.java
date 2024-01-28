@@ -15,9 +15,10 @@ public class ConsoleUI implements UI {
         clearscreen();
         logger.log(System.Logger.Level.INFO, "Wyświetlam stan gry");
         System.out.println("Turn: " + gameState.getTurn());
+        System.out.println("Active player: " + gameState.getActivePlayer());
         for (int i = 0; i < gameState.getBoard().length; i++) {
             for (int j = 0; j < gameState.getBoard()[i].length; j++) {
-                System.out.print(gameState.getBoard()[i][j]);
+                System.out.print(gameState.getBoard()[i][j] == Colour.EMPTY ? "+ " : gameState.getBoard()[i][j] == Colour.BLACK ? "B " : "W ");
             }
             System.out.println();
         }
@@ -93,11 +94,19 @@ public class ConsoleUI implements UI {
         System.out.println("Enter your command: ");
         String command = getLine();
         String[] commandArray = command.split(" ");
+        //command array without first element
+        String[] args = new String[commandArray.length - 1];
+        System.arraycopy(commandArray, 1, args, 0, commandArray.length - 1);
         try {
-            return new Request(commandArray[0], commandArray[1]);
+            return new Request(commandArray[0], args);
         } catch (Exception e) {
             System.out.println("Wrong command format");
         }
         return null;
+    }
+
+    @Override
+    public void updateBoard(GameState gameState) {
+        showGameState(gameState);
     }
 }

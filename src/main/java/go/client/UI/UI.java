@@ -24,4 +24,6 @@ public interface UI {
     void showWinner(String winner);
 
     Request getCommand();
+
+    void updateBoard(GameState gameState);
 }

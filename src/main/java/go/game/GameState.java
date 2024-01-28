@@ -59,12 +59,12 @@ public class GameState implements java.io.Serializable {
         this.player1Captures = player1Captures;
         this.player2Captures = player2Captures;
         this.finished = finished;
-        this.activeplayer = Colour.EMPTY;
+        this.activeplayer = activeplayer;
     }
 
 
     //niedokładne
-    public int countScorePlayer(Colour player) {
+    public int countBoardScorePlayer(Colour player) {
         int score = 0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j <size; ++j) {
@@ -77,12 +77,12 @@ public class GameState implements java.io.Serializable {
     }
 
     public int countScoreP1() {
-        int score = countScorePlayer(Colour.BLACK);
+        int score = countBoardScorePlayer(Colour.BLACK);
         return score + player1Captures;
     }
 
     public int countScoreP2() {
-        int score = countScorePlayer(Colour.WHITE);
+        int score = countBoardScorePlayer(Colour.WHITE);
         return score + player2Captures;
     }
 }

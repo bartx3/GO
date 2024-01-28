@@ -4,6 +4,7 @@ import go.client.UI.UI;
 import go.communications.SocketFacade;
 import go.server.ClientHandling.ClientHandler;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -13,5 +14,7 @@ import java.util.function.Function;
 public interface CommandStrategy extends TriFunction<SocketFacade, String[], UI, Void> {
     @Override
     Void apply(SocketFacade clientHandler, String[] args, UI ui);
+
+    static HashMap<String, CommandStrategy> commands = new HashMap<>();
 };
 

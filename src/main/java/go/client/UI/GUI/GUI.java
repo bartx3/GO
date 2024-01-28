@@ -3,6 +3,7 @@ package go.client.UI.GUI;
 import go.client.UI.UI;
 import go.communications.Credentials;
 import go.communications.Request;
+import go.game.GameState;
 import javafx.stage.Stage;
 
 public class GUI implements UI {
@@ -24,11 +25,20 @@ public class GUI implements UI {
 
     @Override
     public Credentials getCredentials() {
-        return new Logging().getCredentials();
+        return null;
     }
 
     @Override
     public void promptMessage(String message) {
+    }
+
+    @Override
+    public go.game.Move getMove(GameState gameState) {
+        return null;
+    }
+
+    @Override
+    public void showGameList(String[] games) {
 
     }
 
@@ -41,4 +51,10 @@ public class GUI implements UI {
     public Request getCommand() {
         return null;
     }
+
+    @Override
+    public void updateBoard(GameState gameState) {
+
+    }
+
 }
