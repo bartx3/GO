@@ -1,11 +1,15 @@
 package go.client.UI.GUI;
+
 import go.communications.Credentials;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
+
 public class Logging {
     @FXML
     Pane pane_logging;
@@ -15,12 +19,16 @@ public class Logging {
     TextField txtfield_username, txtfield_password;
 
     protected Stage stage;
+    protected Scene scene;
     String username="";
     String password="";
     public void setStage(Stage stage){
         this.stage = stage;
     }
-    public void btnLogged(ActionEvent event){
+    public void setScene(Scene scene){
+        this.scene=scene;
+    }
+    public void btnLogged(MouseEvent event){
 
         try {
             username=txtfield_username.getText();
@@ -28,7 +36,13 @@ public class Logging {
             password=txtfield_password.getText();
             setPassword(password);
 
-            Choice choose = new Choice();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/choice.fxml"));
+            Scene scene = new Scene(loader.load());//root
+            Choice choose=loader.getController();
+            choose.setStage(stage);
+            choose.setScene(scene);
+            stage.setScene(scene);
 
         } catch (Exception e) {
             // TODO: handle exception

@@ -1,8 +1,8 @@
 package go.client;
 
 import go.client.UI.GUI.GUI;
+import go.client.UI.GUI.Welcome;
 import go.client.UI.UI;
-import go.client.comandStrategies.CommandStrategy;
 import go.client.comandStrategies.CommandStrategyFactory;
 import go.communications.Request;
 import go.communications.SocketFacade;
@@ -23,8 +23,10 @@ public class Client extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(Client.class.getResource("/welcome.fxml"));
-        //Parent root = ;
         Scene scene = new Scene(loader.load());
+        Welcome welcome = loader.getController();
+        welcome.setStage(stage);
+        welcome.setScene(scene);
         stage.setScene(scene);
         stage.show();
         //SceneManager.setScene("UI/GUI/welcome.fxml");
@@ -75,13 +77,13 @@ public class Client extends Application {
             }
             if (request.command.equals("exit")) {
                 break;
-            }
+            }/*
             CommandStrategy commandStrategy = csf.getCommandStrategy(request.command);
             if (commandStrategy == null) {
                 ui.showErrorMessage("Invalid command");
                 continue;
             }
-            commandStrategy.apply(server, request.args, ui);
+            commandStrategy.apply(server, request.args, ui);*/
         }
 
     }

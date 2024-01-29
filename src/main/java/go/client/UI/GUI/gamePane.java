@@ -2,6 +2,7 @@ package go.client.UI.GUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -11,8 +12,12 @@ public class gamePane {
     @FXML
     private Button btnPass, btnSurrender;
     protected Stage stage;
+    protected Scene scene;
     public void setStage(Stage stage){
         this.stage = stage;
+    }
+    public void setScene(Scene scene){
+        this.scene=scene;
     }
 
     public String action="none";
