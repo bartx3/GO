@@ -1,7 +1,7 @@
 module go.client {
     requires javafx.controls;
     requires javafx.fxml;
-    requires jdk.internal.opt;
+    //requires jdk.internal.opt;
 
 
     opens go.client to javafx.fxml;

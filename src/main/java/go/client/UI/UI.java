@@ -31,8 +31,6 @@ public interface UI {
 
     Move getMove(GameState gameState);
 
-    void showGameList(String[] games);
-
     void showWinner(String winner);
 
     /**

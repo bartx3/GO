@@ -1,6 +1,5 @@
 package go.client;
 
-import go.client.UI.ConsoleUI;
 import go.client.UI.GUI.GUI;
 import go.client.UI.UI;
 import go.client.comandStrategies.CommandStrategy;
@@ -20,14 +19,39 @@ public class Client extends Application {
     private static final int SERVER_PORT = 8080;
     public static System.Logger logger = System.getLogger("ClientLogger");
     private static SocketFacade server;
+
     @Override
     public void start(Stage stage) throws IOException {
-        UI ui = new ConsoleUI(); //new GUI(stage);
+        FXMLLoader loader = new FXMLLoader(Client.class.getResource("/welcome.fxml"));
+        //Parent root = ;
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
+        //SceneManager.setScene("UI/GUI/welcome.fxml");
+
+        try {
+
+
+            Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+            //socket.connect(socket.getRemoteSocketAddress());
+            server = new SocketFacade(socket);
+            if (!socket.isConnected()) {
+                logger.log(System.Logger.Level.ERROR, "Could not connect to server");
+                return;
+            }
+
+        } catch (Exception e) {
+            logger.log(System.Logger.Level.ERROR, e.getMessage());
+            return;
+        }
+
+        UI ui = new GUI(stage); //new GUI(stage);
         CommandStrategyFactory csf = new CommandStrategyFactory();
         if (server.getSocket().isClosed()) {
             ui.showErrorMessage("Could not connect to server");
             return;
         }
+
         LoginHandler loginHandler = new LoginHandler(ui, server);
         Thread loginthread = new Thread(loginHandler);
         loginthread.start();
@@ -43,6 +67,8 @@ public class Client extends Application {
             return;
         }
         while (true) {
+            //SceneManager.setScene("UI/GUI/welcome.fxml");
+
             Request request = ui.getCommand();
             if (request == null) {
                 continue;
@@ -60,8 +86,11 @@ public class Client extends Application {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
+        launch();/*
         try {
+
+
             Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
             //socket.connect(socket.getRemoteSocketAddress());
             server = new SocketFacade(socket);
@@ -69,10 +98,11 @@ public class Client extends Application {
                 logger.log(System.Logger.Level.ERROR, "Could not connect to server");
                 return;
             }
-            launch();
+
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, e.getMessage());
             return;
-        }
+        }*/
+
     }
 }

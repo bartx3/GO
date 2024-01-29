@@ -1,7 +1,5 @@
 package go.game;
 
-import go.client.UI.ConsoleUI;
-
 public class GameStateBuilder {
     private int size;
     private Colour[][] board;
