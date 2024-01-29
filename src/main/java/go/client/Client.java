@@ -4,7 +4,6 @@ import go.client.UI.GUI.GUI;
 import go.client.UI.GUI.Welcome;
 import go.client.UI.UI;
 import go.client.comandStrategies.CommandStrategyFactory;
-import go.communications.Request;
 import go.communications.SocketFacade;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -68,8 +67,10 @@ public class Client extends Application {
             logger.log(System.Logger.Level.ERROR, "Could not log in");
             return;
         }
-        while (true) {
-            //SceneManager.setScene("UI/GUI/welcome.fxml");
+        logger.log(System.Logger.Level.INFO,loginHandler.name);
+
+        /*while (true) {
+
 
             Request request = ui.getCommand();
             if (request == null) {
@@ -77,34 +78,20 @@ public class Client extends Application {
             }
             if (request.command.equals("exit")) {
                 break;
-            }/*
+            }
             CommandStrategy commandStrategy = csf.getCommandStrategy(request.command);
             if (commandStrategy == null) {
                 ui.showErrorMessage("Invalid command");
                 continue;
             }
-            commandStrategy.apply(server, request.args, ui);*/
-        }
+            commandStrategy.apply(server, request.args, ui);
+        }*/
+
 
     }
 
     public static void main(String[] args){
-        launch();/*
-        try {
-
-
-            Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-            //socket.connect(socket.getRemoteSocketAddress());
-            server = new SocketFacade(socket);
-            if (!socket.isConnected()) {
-                logger.log(System.Logger.Level.ERROR, "Could not connect to server");
-                return;
-            }
-
-        } catch (Exception e) {
-            logger.log(System.Logger.Level.ERROR, e.getMessage());
-            return;
-        }*/
+        launch();
 
     }
 }
