@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="pane_logging" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="pane_logging" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="go.client.UI.GUI.Logging">
    <children>
       <Text layoutX="260.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Button id="btn_logging" layoutX="274.0" layoutY="246.0" mnemonicParsing="false" onAction="#btnLogged" text="Log in" />

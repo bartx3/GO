@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.net.SocketException;
 
 import static go.client.Client.logger;
-import static jdk.internal.joptsimple.internal.Strings.join;
+//import static jdk.internal.joptsimple.internal.Strings.join;
 
 public class PlayGame implements CommandStrategy {
 
@@ -35,7 +35,7 @@ public class PlayGame implements CommandStrategy {
                 if (recieved instanceof Request) {
                     Request r = (Request) recieved;
                     if (r.command.equals("error")) {
-                        ui.showErrorMessage(join(r.args, " "));
+                        //ui.showErrorMessage(join(r.args, " "));
                         return null;
                     }
                 }

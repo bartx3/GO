@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="go.client.UI.GUI.gamePane">
    <children>
       <Pane id="playingPane" layoutX="2.0" layoutY="28.0" prefHeight="371.0" prefWidth="600.0" />
       <Button id="btnSurrender" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnSurrender" text="Surrender" />
