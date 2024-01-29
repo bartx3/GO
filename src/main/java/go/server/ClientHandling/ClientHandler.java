@@ -38,7 +38,8 @@ public class ClientHandler extends Thread {
                 Request request = (Request) socket.receive();
                 CommandStrategy command = csf.getCommandStrategy(request.command);
                 if (command == null) {
-                    socket.send("Invalid command");
+                    Request error = new Request("error", "Invalid command");
+                    socket.send(error);
                     continue;
                 }
                 logger.log(System.Logger.Level.INFO, "Client " + name + " sent command " + request.command + " and we found " + command.getClass().getName());

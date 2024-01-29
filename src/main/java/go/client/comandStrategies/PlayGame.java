@@ -34,9 +34,19 @@ public class PlayGame implements CommandStrategy {
                 logger.log(System.Logger.Level.INFO, "Recieved " + recieved.toString());
                 if (recieved instanceof Request) {
                     Request r = (Request) recieved;
+                    logger.log(System.Logger.Level.INFO, "Recieved request " + r.command);
                     if (r.command.equals("error")) {
-                        ui.showErrorMessage(join(r.args, " "));
-                        return null;
+                        String msg = "";
+                        if (r.args.length > 0) {
+                            for (String s1 : r.args) {
+                                msg += s1 + " ";
+                            }
+                        } else {
+                            msg = "Unknown error";
+                        }
+                        logger.log(System.Logger.Level.INFO, "Recieved error " + msg);
+                        /*ui.showErrorMessage();*/
+                        break;
                     }
                 }
                 if (recieved instanceof String) {

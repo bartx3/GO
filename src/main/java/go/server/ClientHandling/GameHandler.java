@@ -19,6 +19,11 @@ public class GameHandler extends Thread {
     String pl2name;
     Game game;
 
+    private void test_sockets() throws SocketException {
+        player1.test();
+        player2.test();
+    }
+
     public GameHandler(SocketFacade player1, SocketFacade player2, String pl1name, String pl2name, Integer size) {
         logger.log(System.Logger.Level.INFO, "Starting new game handler");
         // randomize who is black and who is white

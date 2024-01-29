@@ -42,13 +42,26 @@ public class SocketFacade {
         logger.log(System.Logger.Level.INFO, "Sent object");
     }
 
+    public boolean test() throws SocketException {
+        try {
+            out.writeObject(new Contest());
+            return true;
+        }
+        catch (Exception e){
+            throw new SocketException();
+        }
+    }
+
     public Socket getSocket() {
         return socket;
     }
 
     public synchronized Serializable receive() throws SocketException {
         try {
-            Serializable obj = (Serializable) in.readObject();
+            Serializable obj;
+            do {
+                obj = (Serializable) in.readObject();
+            } while (obj instanceof Contest);
             logger.log(System.Logger.Level.INFO, "Received object");
             return obj;
         }
@@ -61,3 +74,4 @@ public class SocketFacade {
         return socket.isConnected();
     }
 }
+class Contest implements Serializable{}
