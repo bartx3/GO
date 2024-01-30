@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.util.concurrent.CountDownLatch;
 
-public class GUI  extends Application implements UI {
+public class GUI implements UI {
     Stage stage;
     public static System.Logger logger = System.getLogger("GUILogger");
 
@@ -104,7 +104,4 @@ public class GUI  extends Application implements UI {
         showGameState(gameState);
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-    }
 }
