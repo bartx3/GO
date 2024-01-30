@@ -74,12 +74,9 @@ public class GameHandler extends Thread {
 
                 } while (!validmove);
                 player2.send(gameState);
-                if (gameState.getPassed()) {
-                    logger.log(System.Logger.Level.INFO, "Player passed");
-                    break;
-                }
 
-                save_and_check_if_finished(gameState);
+                savegametodb(gameState);
+                check_if_finished(gameState);
 
                 do {
                     Move move = (Move) player2.receive();
@@ -95,12 +92,9 @@ public class GameHandler extends Thread {
 
                 } while (!validmove);
                 player1.send(gameState);
-                if (gameState.getPassed()) {
-                    logger.log(System.Logger.Level.INFO, "Player passed");
-                    break;
-                }
 
-                save_and_check_if_finished(gameState);
+                savegametodb(gameState);
+                check_if_finished(gameState);
 
 
             }
@@ -124,21 +118,11 @@ public class GameHandler extends Thread {
         logger.log(System.Logger.Level.INFO, "Saved game " + game.getId() + " to database");
     }
 
-    private void save_and_check_if_finished(GameState gameState) throws Exception, gameFinished {
-        savegametodb(gameState);
-
+    private void check_if_finished(GameState gameState) throws Exception, gameFinished {
+        logger.log(System.Logger.Level.INFO, "Checking if game " + game.getId() + " finished. Result: " + gameState.finished);
         if (gameState.finished) {
             logger.log(System.Logger.Level.INFO, "Game " + game.getId() + " finished");
             Colour winner = gameState.getWinner();
-            if (winner == Colour.BLACK) {
-                String winnername = pl1name;
-            }
-            else if (winner == Colour.WHITE) {
-                String winnername = pl2name;
-            }
-            else {
-                String winnername = "Draw";
-            }
             try {
                 player1.send(winner);
             } catch (SocketException ignore) {}

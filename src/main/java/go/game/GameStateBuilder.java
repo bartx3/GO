@@ -2,6 +2,8 @@ package go.game;
 
 import go.client.UI.ConsoleUI;
 
+import static go.server.Server.logger;
+
 public class GameStateBuilder {
     private int size;
     private Colour[][] board;
@@ -10,16 +12,17 @@ public class GameStateBuilder {
     private int player2Captures;
     private boolean finished;
     private Colour player;
-    private boolean passed = false;
+    private boolean passed;
 
     GameState oldGameState;
 
     public GameStateBuilder(GameState gameState) {
+        logger.log(System.Logger.Level.INFO, "Creating new game state builder");
         this.oldGameState = gameState;
         this.size = gameState.size;
         //copy board
         this.board = new Colour[size][size];
-        (new ConsoleUI()).showGameState(gameState);
+        //(new ConsoleUI()).showGameState(gameState);
         for (int i = 0; i < size; i++) {
             System.arraycopy(gameState.board[i], 0, this.board[i], 0, size);
         }
@@ -27,6 +30,7 @@ public class GameStateBuilder {
         this.player1Captures = gameState.player1Captures;
         this.player2Captures = gameState.player2Captures;
         this.finished = gameState.finished;
+        this.passed = gameState.passed;
         this.player = gameState.activeplayer;
     }
 
@@ -134,6 +138,7 @@ public class GameStateBuilder {
     }
 
     public void MakeMove(Move move, boolean whiteturn) {
+        logger.log(System.Logger.Level.INFO, "Trying to make move");
         this.player = whiteturn ? Colour.BLACK : Colour.WHITE;
         if (!whiteturn)
             turn++;
@@ -143,7 +148,9 @@ public class GameStateBuilder {
             return;
         }
         if (move.isPass) {
+            logger.log(System.Logger.Level.INFO, "Player passed");
             if (!passed) {
+                logger.log(System.Logger.Level.INFO, "First consecutive pass");
                 passed = true;
                 return;
             }
@@ -201,10 +208,12 @@ public class GameStateBuilder {
             return false;
         }
         MakeMove(move, whiteturn);
+        logger.log(System.Logger.Level.INFO, "Checking post move");
         return checkPostMove(move);
     }
 
     private Colour calculateWinner() {
+        logger.log(System.Logger.Level.INFO, "Calculating winner");
         int score1 = oldGameState.countScoreP1();
         int score2 = oldGameState.countScoreP2();
         if (score1 > score2) {

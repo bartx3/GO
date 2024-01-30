@@ -58,8 +58,9 @@ public class PlayGame implements CommandStrategy {
                 GameState gameState = (GameState) recieved;
                 ui.showGameState(gameState);
                 if (gameState.finished) {
-                    String winner = (String) socketFacade.receive();
-                    ui.showWinner(winner);
+                    Colour winner = gameState.getWinner();
+                    String winnerString = winner == Colour.BLACK ? "Black" : "White";
+                    ui.showWinner(winnerString);
                     break;
                 }
                 if (gameState.getActivePlayer() == playerColour) {

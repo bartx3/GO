@@ -88,7 +88,11 @@ public class ConsoleUI implements UI {
 
     @Override
     public void showWinner(String winner) {
-        System.out.println("Winner is: " + winner);
+        if (winner == null) {
+            System.out.println("Draw");
+            return;
+        }
+        System.out.println(winner + " won");
     }
 
     private void clearscreen()
