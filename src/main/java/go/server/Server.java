@@ -10,12 +10,12 @@ import java.util.HashMap;
 
 public class Server {
     public static final System.Logger logger = System.getLogger("server");
-    static final HashMap<Integer, Pairer> pairers = new HashMap<>();
+    static final HashMap<String, Pairer> pairers = new HashMap<>();
     static final HashMap<Integer, Accepter> accepters = new HashMap<>();
     static final DBFacade db = new SimpleDBFacade();
     public static void main(String[] args) throws IOException {
         accepters.put(8080, new Accepter(8080));
-        pairers.put(19, new Pairer(19));
+        pairers.put("19", new Pairer(19));
         for (Accepter accepter : accepters.values()) {
             accepter.start();
         }
@@ -24,8 +24,8 @@ public class Server {
         }
     }
 
-    public static Pairer getPairer(int size) {
-        return pairers.get(size);
+    public static Pairer getPairer(String key) {
+        return pairers.get(key);
     }
 
     public static DBFacade getDB() {

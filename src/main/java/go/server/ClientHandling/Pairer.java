@@ -44,11 +44,8 @@ public class Pairer extends Thread {
         }
     }
 
-    public GameHandler addPlayer(String name, Integer size, SocketFacade socket) throws IllegalArgumentException {
+    public GameHandler addPlayer(String name, SocketFacade socket) throws IllegalArgumentException {
         logger.log(System.Logger.Level.INFO, "Adding player " + name + " to queue");
-        if (this.size != size) {
-            throw new IllegalArgumentException("Game size mismatch");
-        }
         Player_Game player = new Player_Game(name, socket, null);
         try {
             queue.put(player);
