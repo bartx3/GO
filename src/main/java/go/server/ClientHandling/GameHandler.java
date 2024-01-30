@@ -76,7 +76,9 @@ public class GameHandler extends Thread {
                 player2.send(gameState);
 
                 savegametodb(gameState);
-                check_if_finished(gameState);
+                if (gameState.finished) {
+                    break;
+                }
 
                 do {
                     Move move = (Move) player2.receive();
@@ -94,7 +96,9 @@ public class GameHandler extends Thread {
                 player1.send(gameState);
 
                 savegametodb(gameState);
-                check_if_finished(gameState);
+                if (gameState.finished) {
+                    break;
+                }
 
 
             }
@@ -108,8 +112,6 @@ public class GameHandler extends Thread {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } catch (gameFinished finished) {
-            logger.log(System.Logger.Level.INFO, "Exiting game handler as the game has finished");
         }
     }
 
@@ -118,24 +120,5 @@ public class GameHandler extends Thread {
         db.saveGame(game);
         logger.log(System.Logger.Level.INFO, "Saved game " + game.getId() + " to database");
     }
-
-    private void check_if_finished(GameState gameState) throws Exception, gameFinished {
-        logger.log(System.Logger.Level.INFO, "Checking if game " + game.getId() + " finished. Result: " + gameState.finished);
-        if (gameState.finished) {
-            logger.log(System.Logger.Level.INFO, "Game " + game.getId() + " finished");
-            Colour winner = gameState.getWinner();
-            try {
-                player1.send(winner);
-            } catch (SocketException ignore) {}
-            try {
-                player2.send(winner);
-            } catch (SocketException ignore) {}
-            throw new gameFinished();
-        }
-    }
 }
 
-
-class gameFinished extends Throwable {
-
-}
