@@ -10,6 +10,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.concurrent.Semaphore;
+
+import static go.client.UI.GUI.GUI.logger;
+
 public class Logging {
     @FXML
     Pane pane_logging;
@@ -18,54 +22,16 @@ public class Logging {
     @FXML
     TextField txtfield_username, txtfield_password;
 
-    protected Stage stage;
-    protected Scene scene;
-    String username="";
-    String password="";
-    public void setStage(Stage stage){
-        this.stage = stage;
-    }
-    public void setScene(Scene scene){
-        this.scene=scene;
-    }
     public void btnLogged(MouseEvent event){
-
-        try {
-            username=txtfield_username.getText();
-            setUsername(username);
-            password=txtfield_password.getText();
-            setPassword(password);
-
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/choice.fxml"));
-            Scene scene = new Scene(loader.load());//root
-            Choice choose=loader.getController();
-            choose.setStage(stage);
-            choose.setScene(scene);
-            stage.setScene(scene);
-
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-    private void setPassword(String password){
-        this.password=password;
-    }
-    private String getPassword() {
-        return password;
+        logger.log(System.Logger.Level.INFO, "Przycisk zaloguj");
+        Stage stage = (Stage) btn_logging.getScene().getWindow();
+        stage.close();
     }
 
-    private void setUsername(String username){
-        this.username=username;
+    public String getUsername(){
+        return txtfield_username.getText();
     }
-    private String getUsername() {
-        return username;
+    public String getPassword(){
+        return txtfield_password.getText();
     }
-    public Credentials getCredentials() {
-        username=getUsername();
-        password=getPassword();
-        return new Credentials(username, password);
-    }
-
-
 }

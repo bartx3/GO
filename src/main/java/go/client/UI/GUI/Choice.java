@@ -23,43 +23,12 @@ public class Choice {
 
     public String command="co robic?";
     public void btn9(ActionEvent event){
-        try {
-            gamePane gamepane = new gamePane(stage,9);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gamePane.fxml"));
-            Scene scene = new Scene(loader.load());//root
-            gamepane=loader.getController();
-            gamepane.setStage(stage);
-            gamepane.setScene(scene);
-            stage.setScene(scene);
-
-            setCommand("play");
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
     }
     public void btn13(ActionEvent event){
-        try {
-            gamePane gamepane = new gamePane(stage,13);
-            setCommand("play");
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+
     }
     public void btn19(ActionEvent event){
-        try {
-            gamePane gamepane = new gamePane(stage,19);
-            setCommand("play");
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-    public void gameLoad(ActionEvent event){
-        try {
-            setCommand("history");
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
 
     }
 

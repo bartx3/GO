@@ -6,11 +6,17 @@ import go.communications.Request;
 import go.game.Colour;
 import go.game.GameState;
 import go.game.Move;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class GUI implements UI {
+import java.util.concurrent.CountDownLatch;
+
+public class GUI  extends Application implements UI {
     Stage stage;
-    System.Logger logger = System.getLogger("ConsoleLogger");
+    public static System.Logger logger = System.getLogger("GUILogger");
 
     public GUI(Stage stage) {
         this.stage = stage;
@@ -36,8 +42,21 @@ public class GUI implements UI {
 
     @Override
     public Credentials getCredentials() {
-        Logging log = new Logging();
-        return log.getCredentials();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/logging.fxml"));
+            Scene scene = new Scene(loader.load());
+            Logging logging = loader.getController();
+            Stage newstage = new Stage();
+            newstage.setScene(scene);
+            newstage.showAndWait();
+            String username = logging.getUsername();
+            String password = logging.getPassword();
+            return new Credentials(username, password);
+        } catch (Exception e) {
+            logger.log(System.Logger.Level.ERROR, e.getMessage());
+        }
+
+        return null;
     }
 
     @Override
@@ -85,4 +104,7 @@ public class GUI implements UI {
         showGameState(gameState);
     }
 
+    @Override
+    public void start(Stage stage) throws Exception {
+    }
 }

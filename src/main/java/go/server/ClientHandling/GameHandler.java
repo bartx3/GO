@@ -60,11 +60,24 @@ public class GameHandler extends Thread {
                 boolean validmove = false;
                 do {
                     Serializable recieved = player1.receive();
-                    /*logger.log(System.Logger.Level.INFO, "Recieved " + recieved.toString());
+                    logger.log(System.Logger.Level.INFO, "Recieved " + recieved.toString());
                     if (recieved instanceof Request) {
                         Request r = (Request) recieved;
                         logger.log(System.Logger.Level.INFO, "Recieved request " + r.command);
-                    }*/
+                        if (r.command.equals("error")) {
+                            String msg = "";
+                            if (r.args.length > 0) {
+                                for (String s1 : r.args) {
+                                    msg += s1 + " ";
+                                }
+                            } else {
+                                msg = "Unknown error";
+                            }
+                            logger.log(System.Logger.Level.INFO, "Recieved error " + msg);
+                            /*ui.showErrorMessage();*/
+                            break;
+                        }
+                    }
                     Move move = (Move) recieved;
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
                     validmove = gameStateBuilder.performAndCheckMove(move, false);

@@ -42,6 +42,7 @@ public class SocketFacade {
         logger.log(System.Logger.Level.INFO, "Sent object");
     }
 
+    //okazuje się być redundantna, ale już dodałem
     public boolean test() throws SocketException {
         try {
             out.writeObject(new Contest());

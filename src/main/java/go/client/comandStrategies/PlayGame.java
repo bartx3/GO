@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.net.SocketException;
 
 import static go.client.Client.logger;
-import static jdk.internal.joptsimple.internal.Strings.join;
 
 public class PlayGame implements CommandStrategy {
 
