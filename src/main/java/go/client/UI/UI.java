@@ -23,6 +23,8 @@ public interface UI {
      */
     Credentials getCredentials();
 
+    int chooseGame(String[] games);
+
     /**
      * Prompts the user for a message
      * @param message the message to prompt
@@ -38,6 +40,4 @@ public interface UI {
      * @return the command
      */
     Request getCommand();
-
-    void updateBoard(GameState gameState);
 }

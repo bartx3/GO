@@ -56,7 +56,7 @@ public class PlayGame implements CommandStrategy {
                     throw new RuntimeException("Unexpected object received");
                 }
                 GameState gameState = (GameState) recieved;
-                ui.updateBoard(gameState);
+                ui.showGameState(gameState);
                 if (gameState.finished) {
                     String winner = (String) socketFacade.receive();
                     ui.showWinner(winner);

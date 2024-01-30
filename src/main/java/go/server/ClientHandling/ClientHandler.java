@@ -53,4 +53,8 @@ public class ClientHandler extends Thread {
     public SocketFacade get_socketf() {
         return socket;
     }
+
+    public String getPlayerName() {
+        return name;
+    }
 }

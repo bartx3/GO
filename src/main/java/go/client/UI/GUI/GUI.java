@@ -60,6 +60,11 @@ public class GUI implements UI {
     }
 
     @Override
+    public int chooseGame(String[] games) {
+        return 0;
+    }
+
+    @Override
     public void promptMessage(String line) {
         logger.log(System.Logger.Level.INFO, "Wyświetlam linijkę");
         System.out.println(line);
@@ -99,9 +104,5 @@ public class GUI implements UI {
         return null;
     }
 
-    @Override
-    public void updateBoard(GameState gameState) {
-        showGameState(gameState);
-    }
 
 }

@@ -1,5 +1,6 @@
 package go.client;
 
+import go.client.UI.ConsoleUI;
 import go.client.UI.GUI.GUI;
 import go.client.UI.UI;
 import go.client.comandStrategies.CommandStrategy;
@@ -35,7 +36,8 @@ public class Client extends Application {
             return;
         }
 
-        UI ui = new GUI(stage); //new GUI(stage);
+        //UI ui = new GUI(stage); //new GUI(stage);
+        UI ui = new ConsoleUI();
         CommandStrategyFactory csf = new CommandStrategyFactory();
         if (server.getSocket().isClosed()) {
             ui.showErrorMessage("Could not connect to server");

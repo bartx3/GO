@@ -51,6 +51,7 @@ public class GameHandler extends Thread {
             player2.send(new Request("start", pl1name));
             player2.send(Colour.WHITE);
             game.init();
+            db.saveGame(game);
             GameState gameState = game.getGameState(0);
             //(new ConsoleUI()).showGameState(gameState);
             player1.send(gameState);
@@ -89,10 +90,11 @@ public class GameHandler extends Thread {
                     gameState = gameStateBuilder.createGameState();
                     player1.send(gameState);
 
-                }
-                while (!validmove);
+                } while (!validmove);
 
                 player2.send(gameState);
+                game.addGameState(gameState);
+                db.saveGame(game);
 
                 if (gameState.finished) {
                     player1.send(pl1name);
@@ -114,6 +116,8 @@ public class GameHandler extends Thread {
                 } while (!validmove);
 
                 player1.send(gameState);
+                game.addGameState(gameState);
+                db.saveGame(game);
 
                 if (gameState.finished) {
                     player1.send(pl2name);

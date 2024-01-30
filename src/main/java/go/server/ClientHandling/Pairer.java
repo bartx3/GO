@@ -26,11 +26,11 @@ public class Pairer extends Thread {
                 size = this.size;
                 logger.log(System.Logger.Level.INFO, "Waiting for player 1");
                 Player_Game player = queue.take();
-                pl1name = player.playrname;
+                pl1name = player.playername;
                 p1socket = player.socket;
                 logger.log(System.Logger.Level.INFO, "Waiting for player 2");
                 player = queue.take();
-                pl2name = player.playrname;
+                pl2name = player.playername;
                 p2socket = player.socket;
                 new GameHandler(p1socket, p2socket, pl1name, pl2name, size).start();
                 pl1name = null;
@@ -64,12 +64,12 @@ public class Pairer extends Thread {
 }
 
 class Player_Game {
-    public String playrname;
+    public String playername;
     public SocketFacade socket;
     public GameHandler handler;
 
     public Player_Game(String playername, SocketFacade socket, GameHandler handler) {
-        this.playrname = playername;
+        this.playername = playername;
         this.socket = socket;
         this.handler = handler;
     }

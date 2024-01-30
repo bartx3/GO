@@ -34,7 +34,7 @@ public class PlayGame implements CommandStrategy{
         } catch (SocketException e) {
             throw new RuntimeException(e);
         }
-        logger.log(System.Logger.Level.INFO, "Looking for game for " + clientHandler.getName() + " with size " + args[0]);
+        logger.log(System.Logger.Level.INFO, "Looking for game for " + clientHandler.getPlayerName() + " with size " + args[0]);
         try {
             Pairer pairer = Server.getPairer(args[0]);
             if (pairer == null) {
@@ -42,7 +42,7 @@ public class PlayGame implements CommandStrategy{
                 socket.send(request);
                 return null;
             }
-            GameHandler gameHandler = pairer.addPlayer(clientHandler.getName(), socket);
+            GameHandler gameHandler = pairer.addPlayer(clientHandler.getPlayerName(), socket);
             gameHandler.join();
         } catch (SocketException | InterruptedException e) {
             throw new RuntimeException(e);

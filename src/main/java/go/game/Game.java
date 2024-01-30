@@ -7,6 +7,10 @@ public class Game {
     public final long id;
     private final int size;
 
+    public int getSize() {
+        return size;
+    }
+
     public enum FinalState {
         NOT_FINISHED,
         PLAYER1_WON,
