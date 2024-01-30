@@ -35,7 +35,7 @@ public class SimpleDBFacade implements DBFacade {
     @Override
     public synchronized boolean saveGame(Game game) {
         try {
-            games.put(game.id, game);
+            games.put(game.getId(), game);
             return true;
         } catch (Exception e) {
             return false;

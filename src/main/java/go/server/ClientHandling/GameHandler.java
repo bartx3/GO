@@ -58,28 +58,11 @@ public class GameHandler extends Thread {
             player2.send(gameState);
 
             while (true) {
-                boolean validmove = false;
+                boolean validmove;
                 do {
-                    Serializable recieved = player1.receive();
-                    logger.log(System.Logger.Level.INFO, "Recieved " + recieved.toString());
-                    if (recieved instanceof Request) {
-                        Request r = (Request) recieved;
-                        logger.log(System.Logger.Level.INFO, "Recieved request " + r.command);
-                        if (r.command.equals("error")) {
-                            String msg = "";
-                            if (r.args.length > 0) {
-                                for (String s1 : r.args) {
-                                    msg += s1 + " ";
-                                }
-                            } else {
-                                msg = "Unknown error";
-                            }
-                            logger.log(System.Logger.Level.INFO, "Recieved error " + msg);
-                            /*ui.showErrorMessage();*/
-                            break;
-                        }
-                    }
-                    Move move = (Move) recieved;
+
+                    //mógłbym to wsadzić w funkcję o kilku parametrach, ale nie widzę na ten moment potrzeby
+                    Move move = (Move) player1.receive();
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
                     validmove = gameStateBuilder.performAndCheckMove(move, false);
                     if (!validmove) {
@@ -95,6 +78,7 @@ public class GameHandler extends Thread {
                 player2.send(gameState);
                 game.addGameState(gameState);
                 db.saveGame(game);
+                logger.log(System.Logger.Level.INFO, "Saved game " + game.getId() + " to database");
 
                 if (gameState.finished) {
                     player1.send(pl1name);
@@ -102,7 +86,6 @@ public class GameHandler extends Thread {
                     break;
                 }
 
-                validmove = false;
                 do {
                     Move move = (Move) player2.receive();
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
@@ -118,6 +101,7 @@ public class GameHandler extends Thread {
                 player1.send(gameState);
                 game.addGameState(gameState);
                 db.saveGame(game);
+                logger.log(System.Logger.Level.INFO, "Saved game " + game.getId() + " to database");
 
                 if (gameState.finished) {
                     player1.send(pl2name);

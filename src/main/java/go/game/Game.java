@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 
 public class Game {
-    public final long id;
+    private final long id;
     private final int size;
 
     public int getSize() {
         return size;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public enum FinalState {

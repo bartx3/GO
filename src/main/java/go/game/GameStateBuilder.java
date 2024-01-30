@@ -124,8 +124,13 @@ public class GameStateBuilder {
     public void MakeMove(Move move, boolean whiteturn) {
         if (!whiteturn)
             turn++;
-        if (move.isPass || move.giveUp)
+        if (move.giveUp) {
+            finished = true;
             return;
+        }
+        if (move.isPass) {
+            return;
+        }
 
         board[move.x][move.y] = whiteturn ? Colour.WHITE : Colour.BLACK;
         int[][] breaths = countAllBreaths();
@@ -175,11 +180,6 @@ public class GameStateBuilder {
             return false;
         }
         MakeMove(move, whiteturn);
-        /*for (int i = 0; i < size; i++) {
-            for (int j = 0 ; j < size; j++) {
-                System.out.print(board[i][j]);
-            }
-        }*/
         return checkPostMove(move);
     }
 }
