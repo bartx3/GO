@@ -3,7 +3,7 @@ package go.game;
 import java.util.ArrayList;
 
 
-public class Game {
+public class Game implements java.io.Serializable {
     private final long id;
     private final int size;
 
@@ -14,6 +14,7 @@ public class Game {
     public Long getId() {
         return id;
     }
+
 
     public enum FinalState {
         NOT_FINISHED,

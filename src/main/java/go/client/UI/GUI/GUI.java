@@ -4,15 +4,14 @@ import go.client.UI.UI;
 import go.communications.Credentials;
 import go.communications.Request;
 import go.game.Colour;
+import go.game.Game;
 import go.game.GameState;
 import go.game.Move;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.ArrayList;
 
 public class GUI implements UI {
     Stage stage;
@@ -60,7 +59,7 @@ public class GUI implements UI {
     }
 
     @Override
-    public int chooseGame(String[] games) {
+    public long chooseGame(ArrayList<Long> games) {
         return 0;
     }
 
@@ -104,5 +103,9 @@ public class GUI implements UI {
         return null;
     }
 
+    @Override
+    public void displayGame(Game game) {
+
+    }
 
 }

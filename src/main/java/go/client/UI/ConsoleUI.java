@@ -4,6 +4,7 @@ import go.communications.Credentials;
 import go.communications.Request;
 import go.game.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConsoleUI implements UI {
@@ -65,17 +66,22 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public int chooseGame(String[] games) {
+    public long chooseGame(ArrayList<Long> games) {
         System.out.println("Available games: ");
-        for (String game : games) {
+        for (Long game : games) {
             System.out.println(game);
         }
         System.out.println("Choose game: ");
-        int game = -1;
+        int game;
+        String line = getLine();
+        if (line.equals("m")) {
+            return -1;
+        }
         try {
-            game = Integer.parseInt(getLine());
+            game = Integer.parseInt(line);
         } catch (Exception e) {
             System.out.println("Wrong game format");
+            return -2;
         }
         return game;
     }
@@ -115,6 +121,43 @@ public class ConsoleUI implements UI {
             System.out.println("Wrong command format");
         }
         return null;
+    }
+
+    @Override
+    public void displayGame(Game game) {
+        System.out.println("n for next move, p for previous move, m for main menu");
+        System.out.println("Game id: " + game.getId());
+        System.out.println("Player 1 (Black) : " + game.player1);
+        System.out.println("Player 2 (White) : " + game.player2);
+        System.out.println("Won by: " + game.getWinner());
+        int iterator = 0;
+        if (game.gameStates.size() == 0) {
+            promptMessage("No moves recorded");
+        }
+        while (true) {
+            GameState gameState = game.getGameState(iterator);
+            if (gameState == null) {
+                promptMessage("No move");
+            }
+            else
+                showGameState(gameState);
+            String line = getLine();
+            if (line.equals("n")) {
+                if (iterator == game.gameStates.size() - 1) {
+                    System.out.println("No more moves");
+                    continue;
+                }
+                iterator++;
+            } else if (line.equals("p")) {
+                if (iterator == 0) {
+                    System.out.println("No more moves");
+                    continue;
+                }
+                iterator--;
+            } else if (line.equals("m")) {
+                break;
+            }
+        }
     }
 
 }

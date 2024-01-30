@@ -4,6 +4,8 @@ import go.communications.Credentials;
 import go.communications.Request;
 import go.game.*;
 
+import java.util.ArrayList;
+
 /**
  * Facade for the UI
  * A simple one. Just for the sake of having one.
@@ -23,7 +25,13 @@ public interface UI {
      */
     Credentials getCredentials();
 
-    int chooseGame(String[] games);
+
+    /**
+     * Gets the game id from the user
+     * @param games the games to choose from
+     * @return the chosen game
+     */
+    long chooseGame(ArrayList<Long> games);
 
     /**
      * Prompts the user for a message
@@ -40,4 +48,6 @@ public interface UI {
      * @return the command
      */
     Request getCommand();
+
+    void displayGame(Game game);
 }

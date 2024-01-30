@@ -108,7 +108,8 @@ public class GameHandler extends Thread {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } catch (gameFinished ignore) {
+        } catch (gameFinished finished) {
+            logger.log(System.Logger.Level.INFO, "Exiting game handler as the game has finished");
         }
     }
 
@@ -131,10 +132,6 @@ public class GameHandler extends Thread {
             } catch (SocketException ignore) {}
             throw new gameFinished();
         }
-    }
-
-    private void process_move(SocketFacade curP, String curPn, SocketFacade p2, String p2n, GameState gameState, boolean whiteturn) throws gameFinished, SocketException, Exception {
-
     }
 }
 
