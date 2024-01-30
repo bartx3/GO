@@ -58,10 +58,9 @@ public class GameHandler extends Thread {
             player2.send(gameState);
 
             while (true) {
+                // Narazie zostawiam tu 2 podobne bloki kodu. Przerobienie tego na funkcje jest mozliwe, ale teraz to by pogorszyło czytelność
                 boolean validmove;
                 do {
-
-                    //mógłbym to wsadzić w funkcję o kilku parametrach, ale nie widzę na ten moment potrzeby
                     Move move = (Move) player1.receive();
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
                     validmove = gameStateBuilder.performAndCheckMove(move, false);
@@ -74,40 +73,36 @@ public class GameHandler extends Thread {
                     player1.send(gameState);
 
                 } while (!validmove);
-
                 player2.send(gameState);
-                game.addGameState(gameState);
-                db.saveGame(game);
-                logger.log(System.Logger.Level.INFO, "Saved game " + game.getId() + " to database");
-
-                if (gameState.finished) {
-                    player1.send(pl1name);
-                    player2.send(pl1name);
+                if (gameState.getPassed()) {
+                    logger.log(System.Logger.Level.INFO, "Player passed");
                     break;
                 }
+
+                save_and_check_if_finished(gameState);
 
                 do {
                     Move move = (Move) player2.receive();
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
                     validmove = gameStateBuilder.performAndCheckMove(move, true);
                     if (!validmove) {
+                        logger.log(System.Logger.Level.INFO, "Invalid move");
                         player2.send(gameState);
                         continue;
                     }
                     gameState = gameStateBuilder.createGameState();
                     player2.send(gameState);
+
                 } while (!validmove);
-
                 player1.send(gameState);
-                game.addGameState(gameState);
-                db.saveGame(game);
-                logger.log(System.Logger.Level.INFO, "Saved game " + game.getId() + " to database");
-
-                if (gameState.finished) {
-                    player1.send(pl2name);
-                    player2.send(pl2name);
+                if (gameState.getPassed()) {
+                    logger.log(System.Logger.Level.INFO, "Player passed");
                     break;
                 }
+
+                save_and_check_if_finished(gameState);
+
+
             }
         } catch (SocketException e) {
             try {
@@ -119,6 +114,47 @@ public class GameHandler extends Thread {
             throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } catch (gameFinished ignore) {
         }
     }
+
+    private void savegametodb(GameState gameState) throws Exception {
+        game.addGameState(gameState);
+        db.saveGame(game);
+        logger.log(System.Logger.Level.INFO, "Saved game " + game.getId() + " to database");
+    }
+
+    private void save_and_check_if_finished(GameState gameState) throws Exception, gameFinished {
+        savegametodb(gameState);
+
+        if (gameState.finished) {
+            logger.log(System.Logger.Level.INFO, "Game " + game.getId() + " finished");
+            Colour winner = gameState.getWinner();
+            if (winner == Colour.BLACK) {
+                String winnername = pl1name;
+            }
+            else if (winner == Colour.WHITE) {
+                String winnername = pl2name;
+            }
+            else {
+                String winnername = "Draw";
+            }
+            try {
+                player1.send(winner);
+            } catch (SocketException ignore) {}
+            try {
+                player2.send(winner);
+            } catch (SocketException ignore) {}
+            throw new gameFinished();
+        }
+    }
+
+    private void process_move(SocketFacade curP, String curPn, SocketFacade p2, String p2n, GameState gameState, boolean whiteturn) throws gameFinished, SocketException, Exception {
+
+    }
+}
+
+
+class gameFinished extends Throwable {
+
 }

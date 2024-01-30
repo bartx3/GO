@@ -23,8 +23,12 @@ public class Game {
     }
     public final String player1;
     public final String player2;
-    public FinalState winner = FinalState.NOT_FINISHED;
+    private FinalState winner = FinalState.NOT_FINISHED;
     public ArrayList<GameState> gameStates;
+
+    public FinalState getWinner() {
+        return winner;
+    }
 
     public Game(long id, String player1, String player2, int size) {
         this.id = id;
@@ -36,6 +40,15 @@ public class Game {
     public void addGameState(GameState gameState) throws Exception {
         if (this.size != gameState.size) {
             throw new Exception("Game size mismatch");
+        }
+        if (gameState.finished) {
+            if (gameState.getWinner() == Colour.BLACK) {
+                winner = FinalState.PLAYER1_WON;
+            } else if (gameState.getWinner() == Colour.WHITE) {
+                winner = FinalState.PLAYER2_WON;
+            } else {
+                winner = FinalState.DRAW;
+            }
         }
         gameStates.add(gameState);
     }
@@ -56,7 +69,7 @@ public class Game {
                 board[i][j] = Colour.EMPTY;
             }
         }
-        gameStates.add(new GameState(size, board, 0, 0, 0, false, Colour.BLACK));
+        gameStates.add(new GameState(size, board, 0, 0, 0, false, Colour.BLACK, false));
     }
 
     public int getGameStateCount() {

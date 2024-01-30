@@ -1,18 +1,25 @@
 package go.game;
 
+import go.client.UI.ConsoleUI;
+
 public class GameStateBuilder {
     private int size;
     private Colour[][] board;
     private int turn;
     private int player1Captures;
     private int player2Captures;
-    private boolean finished = false;
-    private Colour activeplayer;
+    private boolean finished;
+    private Colour player;
+    private boolean passed = false;
+
+    GameState oldGameState;
 
     public GameStateBuilder(GameState gameState) {
+        this.oldGameState = gameState;
         this.size = gameState.size;
         //copy board
         this.board = new Colour[size][size];
+        (new ConsoleUI()).showGameState(gameState);
         for (int i = 0; i < size; i++) {
             System.arraycopy(gameState.board[i], 0, this.board[i], 0, size);
         }
@@ -20,7 +27,7 @@ public class GameStateBuilder {
         this.player1Captures = gameState.player1Captures;
         this.player2Captures = gameState.player2Captures;
         this.finished = gameState.finished;
-        this.activeplayer = gameState.activeplayer;
+        this.player = gameState.activeplayer;
     }
 
     public GameStateBuilder setSize(int size) {
@@ -53,13 +60,18 @@ public class GameStateBuilder {
         return this;
     }
 
-    public GameStateBuilder setActivePlayer(Colour activeplayer) {
-        this.activeplayer = activeplayer;
+    public GameStateBuilder setPlayer(Colour player) {
+        this.player = player;
+        return this;
+    }
+
+    public GameStateBuilder setPassed(boolean passed) {
+        this.passed = passed;
         return this;
     }
 
     public GameState createGameState() {
-        return new GameState(size, board, turn, player1Captures, player2Captures, finished, activeplayer);
+        return new GameState(size, board, turn, player1Captures, player2Captures, finished, player, passed);
     }
 
     private boolean fastCheckMove(Move move) {
@@ -122,15 +134,25 @@ public class GameStateBuilder {
     }
 
     public void MakeMove(Move move, boolean whiteturn) {
+        this.player = whiteturn ? Colour.BLACK : Colour.WHITE;
         if (!whiteturn)
             turn++;
         if (move.giveUp) {
             finished = true;
+            player = whiteturn ? Colour.WHITE : Colour.BLACK;
             return;
         }
         if (move.isPass) {
+            if (!passed) {
+                passed = true;
+                return;
+            }
+            finished = true;
+            player = calculateWinner();
             return;
         }
+        else
+            passed = false;
 
         board[move.x][move.y] = whiteturn ? Colour.WHITE : Colour.BLACK;
         int[][] breaths = countAllBreaths();
@@ -165,7 +187,6 @@ public class GameStateBuilder {
                 }
             }
         }
-        this.activeplayer = whiteturn ? Colour.BLACK : Colour.WHITE;
     }
 
     private boolean checkPostMove(Move move) {
@@ -181,5 +202,17 @@ public class GameStateBuilder {
         }
         MakeMove(move, whiteturn);
         return checkPostMove(move);
+    }
+
+    private Colour calculateWinner() {
+        int score1 = oldGameState.countScoreP1();
+        int score2 = oldGameState.countScoreP2();
+        if (score1 > score2) {
+            return Colour.BLACK;
+        }
+        if (score1 < score2) {
+            return Colour.WHITE;
+        }
+        return Colour.EMPTY;
     }
 }
