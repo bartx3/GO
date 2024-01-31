@@ -5,10 +5,34 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.concurrent.SynchronousQueue;
+import java.util.ResourceBundle;
 
 public class SocketFacade {
-    protected static final System.Logger logger = System.getLogger(SocketFacade.class.getName());
+    protected static final System.Logger logger = new System.Logger() {
+        @Override
+        public String getName() {
+            return "Socketlogger";
+        }
+
+        @Override
+        public boolean isLoggable(Level level) {
+            return level.getSeverity() > Level.INFO.getSeverity();
+        }
+
+        @Override
+        public void log(Level level, ResourceBundle bundle, String msg, Throwable thrown) {
+            if (isLoggable(level)) {
+                logger.log(level, bundle, msg, thrown);
+            }
+        }
+
+        @Override
+        public void log(Level level, ResourceBundle bundle, String format, Object... params) {
+            if (isLoggable(level)) {
+                logger.log(level, bundle, format, params);
+            }
+        }
+    };
     protected Socket socket;
     protected ObjectInputStream in;
     protected ObjectOutputStream out;

@@ -12,11 +12,36 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ResourceBundle;
 
 public class Client extends Application {
     private static final String SERVER_ADDRESS = "localhost";
     private static final int SERVER_PORT = 8080;
-    public static System.Logger logger = System.getLogger("ClientLogger");
+    public static System.Logger logger = new System.Logger() {
+        @Override
+        public String getName() {
+            return "ClientLogger";
+        }
+
+        @Override
+        public boolean isLoggable(Level level) {
+            return level.getSeverity() > Level.INFO.getSeverity();
+        }
+
+        @Override
+        public void log(Level level, ResourceBundle bundle, String msg, Throwable thrown) {
+            if (isLoggable(level)) {
+                logger.log(level, bundle, msg, thrown);
+            }
+        }
+
+        @Override
+        public void log(Level level, ResourceBundle bundle, String format, Object... params) {
+            if (isLoggable(level)) {
+                logger.log(level, bundle, format, params);
+            }
+        }
+    };
     private static SocketFacade server;
 
     @Override

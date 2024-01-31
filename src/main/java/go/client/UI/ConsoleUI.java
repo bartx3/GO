@@ -1,15 +1,18 @@
 package go.client.UI;
 
+import go.client.Client;
 import go.communications.Credentials;
 import go.communications.Request;
 import go.game.*;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.Scanner;
+
+import static go.client.Client.logger;
 
 public class ConsoleUI implements UI {
 
-    System.Logger logger = System.getLogger("ConsoleLogger");
 
     @Override
     public void showGameState(GameState gameState) {

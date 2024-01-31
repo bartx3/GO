@@ -13,10 +13,12 @@ public class Server {
     public static final System.Logger logger = System.getLogger("server");
     static final HashMap<String, Pairer> pairers = new HashMap<>();
     static final HashMap<Integer, Accepter> accepters = new HashMap<>();
-    static final DBFacade db = new MongoDBFacade();
+    static final DBFacade db = new SimpleDBFacade(); //new MongoDBFacade();
     public static void main(String[] args) throws IOException {
         accepters.put(8080, new Accepter(8080));
         pairers.put("19", new Pairer(19));
+        pairers.put("13", new Pairer(13));
+        pairers.put("9", new Pairer(9));
         for (Accepter accepter : accepters.values()) {
             accepter.start();
         }
