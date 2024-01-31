@@ -56,7 +56,7 @@ public class JUnitTest {
         boolean verify = gameStateBuilder.performAndCheckMove(move, true);
 
         assertTrue(verify);
-        assertEquals(1, gameStateBuilder.createGameState().getPlayer1Captures());
+        assertEquals(1, gameStateBuilder.createGameState().getPlayer2Captures());
         assertEquals(Colour.EMPTY, gameStateBuilder.createGameState().getBoard()[0][0]);
     }
 }

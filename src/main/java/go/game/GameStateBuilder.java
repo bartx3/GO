@@ -170,11 +170,11 @@ public class GameStateBuilder {
                 if (breaths[i][j] == 0) {
                     if (board[i][j] == Colour.BLACK && whiteturn) {
                         board[i][j] = Colour.EMPTY;
-                        player1Captures++;
+                        player2Captures++;
                     }
                     if (board[i][j] == Colour.WHITE && !whiteturn) {
                         board[i][j] = Colour.EMPTY;
-                        player2Captures++;
+                        player1Captures++;
                     }
                 }
             }
