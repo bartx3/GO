@@ -6,13 +6,9 @@ import go.communications.Request;
 import go.game.Colour;
 import go.game.GameState;
 import go.game.Move;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.concurrent.CountDownLatch;
 
 public class GUI implements UI {
     Stage stage;
@@ -90,17 +86,27 @@ public class GUI implements UI {
 
     @Override
     public Request getCommand() {
-        Choice choose=new Choice();
-        String command=choose.getCommand();
-        String[] commandArray = command.split(" ");
-        //command array without first element
-        String[] args = new String[commandArray.length - 1];
-        System.arraycopy(commandArray, 1, args, 0, commandArray.length - 1);
-        try {
-            return new Request(commandArray[0], args);
-        } catch (Exception e) {
-            System.out.println("Wrong command format");
-        }
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/choice.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage newstage = new Stage();
+            newstage.setScene(scene);
+            newstage.showAndWait();
+            Choice choose=new Choice();
+            String command=choose.getCommand();
+            String[] commandArray = command.split(" ");
+            //command array without first element
+            String[] args = new String[commandArray.length - 1];
+            System.arraycopy(commandArray, 1, args, 0, commandArray.length - 1);
+            try {
+                return new Request(commandArray[0], args);
+            } catch (Exception e) {
+                System.out.println("Wrong command format");
+            }
+
+        }catch(Exception e){}
+
+
         return null;
     }
 

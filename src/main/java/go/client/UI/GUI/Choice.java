@@ -1,16 +1,16 @@
 package go.client.UI.GUI;
-import  javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 public class Choice {
     @FXML
     Pane pane_choice;
     @FXML
-    private Button btn_logging;
+    private Button btn9,btn13,btn19,btnLoad;
 
     protected Stage stage;
     protected Scene scene;
@@ -22,14 +22,21 @@ public class Choice {
     }
 
     public String command="co robic?";
-    public void btn9(ActionEvent event){
-
+    public void btn9(MouseEvent event){
+        setCommand("play");
     }
-    public void btn13(ActionEvent event){
-
+    public void btn13(MouseEvent event){
+        setCommand("play");
+        Stage stage = (Stage) btn13.getScene().getWindow();
+        stage.close();
     }
-    public void btn19(ActionEvent event){
-
+    public void btn19(MouseEvent event){
+        setCommand("play");
+        Stage stage = (Stage) btn19.getScene().getWindow();
+        stage.close();
+    }
+    public void gameLoad(MouseEvent event){
+        setCommand("history");
     }
 
     public void setCommand(String command) {
