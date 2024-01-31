@@ -51,6 +51,7 @@ public class GameHandler extends Thread {
             player2.send(gameState);
 
             while (true) {
+                logger.log(System.Logger.Level.INFO, "Waiting for move from " + pl1name);
                 // Narazie zostawiam tu 2 podobne bloki kodu. Przerobienie tego na funkcje jest mozliwe, ale teraz to by pogorszyło czytelność
                 boolean validmove;
                 do {
@@ -69,10 +70,12 @@ public class GameHandler extends Thread {
                 player2.send(gameState);
 
                 savegametodb(gameState);
+                logger.log(System.Logger.Level.INFO, "Checking if game finished. Result: " + gameState.finished );
                 if (gameState.finished) {
                     break;
                 }
 
+                logger.log(System.Logger.Level.INFO, "Waiting for move from " + pl2name);
                 do {
                     Move move = (Move) player2.receive();
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
@@ -89,6 +92,7 @@ public class GameHandler extends Thread {
                 player1.send(gameState);
 
                 savegametodb(gameState);
+                logger.log(System.Logger.Level.INFO, "Checking if game finished. Result: " + gameState.finished );
                 if (gameState.finished) {
                     break;
                 }
@@ -106,6 +110,7 @@ public class GameHandler extends Thread {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        logger.log(System.Logger.Level.INFO, "Game finished");
     }
 
     private void savegametodb(GameState gameState) throws Exception {

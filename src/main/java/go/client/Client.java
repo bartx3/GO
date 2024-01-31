@@ -55,7 +55,6 @@ public class Client extends Application {
 
         while (true) {
 
-
             Request request = ui.getCommand();
             if (request == null) {
                 continue;

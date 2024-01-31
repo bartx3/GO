@@ -19,7 +19,7 @@ public class ConsoleUI implements UI {
         System.out.println("Active player: " + gameState.getActivePlayer());
         for (int i = 0; i < gameState.getBoard().length; i++) {
             for (int j = 0; j < gameState.getBoard()[i].length; j++) {
-                System.out.print(gameState.getBoard()[i][j] == Colour.EMPTY ? "+ " : gameState.getBoard()[i][j] == Colour.BLACK ? "B " : "W ");
+                System.out.print(gameState.getBoard()[i][j] == Colour.EMPTY ? "➕" : gameState.getBoard()[i][j] == Colour.BLACK ? "⚫" : "⚪");
             }
             System.out.println();
         }
@@ -94,11 +94,7 @@ public class ConsoleUI implements UI {
 
     @Override
     public void showWinner(String winner) {
-        if (winner == null) {
-            System.out.println("Draw");
-            return;
-        }
-        System.out.println(winner + " won");
+        System.out.println(winner);
     }
 
     private void clearscreen()

@@ -44,6 +44,7 @@ public class PlayGame implements CommandStrategy{
             }
             GameHandler gameHandler = pairer.addPlayer(clientHandler.getPlayerName(), socket);
             gameHandler.join();
+            logger.log(System.Logger.Level.INFO, "gamehandler joined");
         } catch (SocketException | InterruptedException e) {
             throw new RuntimeException(e);
         }

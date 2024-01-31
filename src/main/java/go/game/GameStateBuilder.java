@@ -156,6 +156,7 @@ public class GameStateBuilder {
             }
             finished = true;
             player = calculateWinner();
+            logger.log(System.Logger.Level.INFO, "Game finished. Winner: " + player);
             return;
         }
         else

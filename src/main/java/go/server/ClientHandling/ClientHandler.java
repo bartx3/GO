@@ -35,6 +35,7 @@ public class ClientHandler extends Thread {
             name = loginHandler.getName();
 
             while (true) {
+                logger.log(System.Logger.Level.INFO, "Waiting for command from " + name);
                 Request request = (Request) socket.receive();
                 CommandStrategy command = csf.getCommandStrategy(request.command);
                 if (command == null) {

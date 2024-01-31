@@ -59,8 +59,13 @@ public class PlayGame implements CommandStrategy {
                 ui.showGameState(gameState);
                 if (gameState.finished) {
                     Colour winner = gameState.getWinner();
-                    String winnerString = winner == Colour.BLACK ? "Black" : "White";
-                    ui.showWinner(winnerString);
+                    if (winner.equals(Colour.EMPTY)) {
+                        ui.showWinner("");
+                    }
+                    else {
+                        String winnerString = winner.equals(Colour.BLACK) ? "Black" : (winner.equals(Colour.WHITE) ? "White" : "Draw");
+                        ui.showWinner(winnerString);
+                    }
                     break;
                 }
                 if (gameState.getActivePlayer() == playerColour) {
