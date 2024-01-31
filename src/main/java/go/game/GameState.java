@@ -47,6 +47,19 @@ public class GameState implements java.io.Serializable {
         this.activeplayer = Colour.EMPTY;
     }
 
+    public GameState(int size, Colour[][] board)
+    {
+        this.size = size;
+        this.board = board;
+        this.winner = Colour.EMPTY;
+        this.passed = false;
+        this.turn = 0;
+        this.player1Captures = 0;
+        this.player2Captures = 0;
+        this.finished = false;
+        this.activeplayer = Colour.EMPTY;
+    }
+
     public GameState(int size, Colour[][] board, int turn, int player1Captures, int player2Captures, Colour activeplayer) {
         this.size = size;
         this.board = board;
@@ -151,5 +164,17 @@ public class GameState implements java.io.Serializable {
 
     public boolean getPassed() {
         return passed;
+    }
+
+    public int getPlayer1Captures() {
+        return player1Captures;
+    }
+
+    public int getPlayer2Captures() {
+        return player2Captures;
+    }
+
+    public boolean getFinished() {
+        return finished;
     }
 }

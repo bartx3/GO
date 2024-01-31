@@ -8,25 +8,35 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import go.communications.Credentials;
 import go.game.Game;
 import go.game.GameState;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static go.server.Server.logger;
 
 public class MongoDBFacade implements DBFacade {
     private MongoDatabase database;
 
     public MongoDBFacade() {
-        String connectionString = "mongodb+srv://student:1234@mydb1.ewqpyk0.mongodb.net/?retryWrites=true&w=majority";
+        String connectionString = "mongodb+srv://student:1234@mydb1.ewqpyk0.mongodb.net/?retryWrites=true&w=majority";  // Wiem, że niebezpieczne
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
+        CodecRegistry defaultCodecRegistry = MongoClientSettings.getDefaultCodecRegistry();
+        CodecRegistry fromProvider = CodecRegistries.fromCodecs(new GameStateCodec());
+        CodecRegistry codecRegistry = CodecRegistries.fromRegistries(defaultCodecRegistry, fromProvider);
+
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(new ConnectionString(connectionString))
-                .serverApi(serverApi)
+                .codecRegistry(codecRegistry)
                 .build();
 
         MongoClient mongoClient = MongoClients.create(settings);
@@ -63,22 +73,35 @@ public class MongoDBFacade implements DBFacade {
     @Override
     public boolean saveGame(Game game) {
         MongoCollection<Document> collection = database.getCollection("Game");
-        Document document = new Document("player1", game.player1)
-                .append("player2", game.player1)
+        Document query = new Document("id", game.getId());
+        Document document = new Document("id", game.getId())
+                .append("player1", game.player1)
+                .append("player2", game.player2)
                 .append("size", game.getSize())
                 .append("state", game.gameStates);
         collection.insertOne(document);
+        // Check if game already exists
+        if (!collection.find(query).first().isEmpty()) {
+            //overwrite game
+            collection.updateOne(
+                    Filters.eq("id", game.getId()),
+                    query
+            );
+        }
+        else
+            collection.insertOne(document);
         return true;
     }
 
     @Override
     public long newGame(String player1, String player2, int size) {
         MongoCollection<Document> collection = database.getCollection("Game");
-        long id = generateUniqueGameID(); // Implement this method to generate a unique long value
-        Document document = new Document("_id", id)
+        long id = generateUniqueGameID();
+        Document document = new Document("id", id)
                 .append("player1", player1)
                 .append("player2", player2)
-                .append("size", size);
+                .append("size", size)
+                .append("state", new ArrayList<GameState>());
         collection.insertOne(document);
         return id;
     }
@@ -87,7 +110,7 @@ public class MongoDBFacade implements DBFacade {
         //count from 0 to first value not in database as id
         MongoCollection<Document> collection = database.getCollection("Game");
         long id = 0;
-        while (collection.find(new Document("_id", id)).first() != null) {
+        while (collection.find(new Document("id", id)).first() != null) {
             id++;
         }
         return id;
@@ -96,11 +119,11 @@ public class MongoDBFacade implements DBFacade {
     @Override
     public Game loadGame(long id) {
         MongoCollection<Document> collection = database.getCollection("Game");
-        Document query = new Document("_id", id);
+        Document query = new Document("id", id);
         Document document = collection.find(query).first();
         if (document != null) {
             List<GameState> state = (List<GameState>) document.get("state");
-            return new Game(document.getString("player1"), document.getString("player2"), document.getInteger("size"), state, document.getLong("_id"));
+            return new Game(document.getString("player1"), document.getString("player2"), document.getInteger("size"), state, document.getLong("id"));
         }
         return null;
     }
@@ -111,7 +134,7 @@ public class MongoDBFacade implements DBFacade {
         List<Document> documents = collection.find().into(new ArrayList<>());
         ArrayList<Long> gameIds = new ArrayList<>();
         for (Document document : documents) {
-            gameIds.add(document.getLong("_id"));
+            gameIds.add(document.getLong("id"));
         }
         return gameIds;
     }

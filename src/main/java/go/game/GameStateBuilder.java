@@ -186,11 +186,11 @@ public class GameStateBuilder {
                 if (breaths[i][j] == 0) {
                     if (board[i][j] == Colour.BLACK) {
                         board[i][j] = Colour.EMPTY;
-                        player1Captures++;
+                        player2Captures++;
                     }
                     if (board[i][j] == Colour.WHITE) {
                         board[i][j] = Colour.EMPTY;
-                        player2Captures++;
+                        player1Captures++;
                     }
                 }
             }
