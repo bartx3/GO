@@ -1,7 +1,6 @@
 package go.client;
 
 import go.client.UI.ConsoleUI;
-import go.client.UI.GUI.GUI;
 import go.client.UI.UI;
 import go.client.comandStrategies.CommandStrategy;
 import go.client.comandStrategies.CommandStrategyFactory;

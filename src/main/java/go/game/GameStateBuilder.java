@@ -1,7 +1,5 @@
 package go.game;
 
-import go.client.UI.ConsoleUI;
-
 import static go.server.Server.logger;
 
 public class GameStateBuilder {
