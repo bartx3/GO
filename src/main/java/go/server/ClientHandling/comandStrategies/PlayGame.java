@@ -8,7 +8,6 @@ import go.server.ClientHandling.Pairer;
 import go.server.Server;
 
 import java.net.SocketException;
-import java.util.HashMap;
 
 import static go.server.Server.logger;
 

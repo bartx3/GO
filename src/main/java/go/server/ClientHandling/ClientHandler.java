@@ -4,13 +4,10 @@ import go.communications.Request;
 import go.communications.SocketFacade;
 import go.server.ClientHandling.comandStrategies.CommandStrategy;
 import go.server.ClientHandling.comandStrategies.CommandStrategyFactoryS;
-import go.server.ClientHandling.comandStrategies.History;
-import go.server.ClientHandling.comandStrategies.PlayGame;
 import go.server.Server;
 
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.HashMap;
 
 import static go.client.Client.logger;
 
