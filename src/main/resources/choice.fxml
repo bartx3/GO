@@ -6,7 +6,7 @@
 
 <Pane id="pane_choice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="go.client.UI.GUI.Choice">
    <children>
-      <Text id="txt_choice" layoutX="259.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a game" />
+      <Text fx:id="txt_choice" layoutX="259.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a game" />
       <Button layoutX="180.0" layoutY="188.0" mnemonicParsing="false" onAction="#btn9" text="New 9x9 game" />
       <Button layoutX="307.0" layoutY="188.0" mnemonicParsing="false" onAction="#btn13" text="New 13x13 game" />
       <Button layoutX="443.0" layoutY="188.0" mnemonicParsing="false" onAction="#btn19" text="New 19x19 game" />

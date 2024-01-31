@@ -6,8 +6,8 @@
 
 <Pane id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="go.client.UI.GUI.gamePane">
    <children>
-      <Pane id="playingPane" layoutX="2.0" layoutY="28.0" prefHeight="371.0" prefWidth="600.0" />
-      <Button id="btnSurrender" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnSurrender" text="Surrender" />
-      <Button id="btnPass" layoutX="70.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnPass" text="Pass" />
+      <Pane fx:id="playingPane" layoutX="2.0" layoutY="28.0" prefHeight="371.0" prefWidth="600.0" />
+      <Button fx:id="btnSurrender" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnSurrender" text="Surrender" />
+      <Button fx:id="btnPass" layoutX="70.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnPass" text="Pass" />
    </children>
 </Pane>
