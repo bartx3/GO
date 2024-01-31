@@ -139,12 +139,12 @@ public class GameStateBuilder {
 
     public void MakeMove(Move move, boolean whiteturn) {
         logger.log(System.Logger.Level.INFO, "Trying to make move");
+        // switch the player. If it's a give up, this is the winner. If not, it is the player playing next round
         this.player = whiteturn ? Colour.BLACK : Colour.WHITE;
         if (!whiteturn)
             turn++;
         if (move.giveUp) {
             finished = true;
-            player = whiteturn ? Colour.WHITE : Colour.BLACK;
             return;
         }
         if (move.isPass) {

@@ -1,11 +1,20 @@
 package go.game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Game implements java.io.Serializable {
     private final long id;
     private final int size;
+
+    public Game(String player1, String player2, Integer size, List<GameState> state, Long id) {
+        this.id = id;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.size = size;
+        this.gameStates = new ArrayList<>(state);
+    }
 
     public int getSize() {
         return size;
