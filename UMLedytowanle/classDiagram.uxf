@@ -1,0 +1,1410 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>726</x>
+      <y>618</y>
+      <w>300</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>go.client.UI::ConsoleUI
+--
+~logger = System.getLogger("ConsoleLogger"): System.Logger
+--
++showGameState(GameState gameState): void
++showErrorMessage(String message): void
++getLine(): String
++getCredentials(): Credentials
++getMove(GameState gameState): Move
++chooseGame(String[] games): int
++promptMessage(String line): void
++showWinner(String winner): void
+-clearscreen(): void
++getCommand(): Request
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>768</x>
+      <y>480</y>
+      <w>240</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+go.client.UI::UI
+--
+--
+~showGameState(GameState gameState): void
+~showErrorMessage(String message): void
+~getCredentials(): Credentials
+~chooseGame(String[] games): int
+~promptMessage(String message): void
+~getMove(GameState gameState): Move
+~showWinner(String winner): void
+~getCommand(): Request
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>864</x>
+      <y>360</y>
+      <w>288</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>go.client::Client
+--
+-SERVER_ADDRESS = "localhost": String
+-SERVER_PORT = 8080: int
++logger = System.getLogger("ClientLogger"): System.Logger
+-server: SocketFacade
+--
++start(Stage stage): void
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1422</x>
+      <y>330</y>
+      <w>246</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>go.client::LoginHandler
+--
+~name: String
+~ui: UI
+~server: SocketFacade
+--
++LoginHandler(UI ui, SocketFacade server): ctor
++run(): void
++getName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>312</x>
+      <y>588</y>
+      <w>324</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+go.client.comandStrategies::CommandStrategy
+--
+~commands = new HashMap(): HashMap&lt;String, CommandStrategy&gt;
+--
+~apply(SocketFacade clientHandler, String[] args, UI ui): Void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>552</x>
+      <y>402</y>
+      <w>270</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>go.client.comandStrategies::CommandStrategyFactory
+--
+~commands = new HashMap(): HashMap&lt;String, CommandStrategy&gt;
+--
++CommandStrategyFactory(): ctor
++getCommandStrategy(String command): CommandStrategy
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>306</x>
+      <y>480</y>
+      <w>348</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+go.client.comandStrategies::TriFunction
+--
+--
+~apply(T t, U u, V v): R
+~andThen(Function&lt;? super R, ? extends K&gt; after): TriFunction&lt;T, U, V, K&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>294</x>
+      <y>714</y>
+      <w>306</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>go.client.comandStrategies::PlayGame
+--
+--
++apply(SocketFacade socketFacade, String[] strings, UI ui): Void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1188</x>
+      <y>516</y>
+      <w>324</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>go.communications::ScoketFacade
+--
+#logger = System.getLogger(SocketFacade.class.getName()): System.Logger
+#socket: Socket
+#in: ObjectInputStream
+#out: ObjectOutputStream
+--
++SocketFacade(Socket socket): ctor
++send(Serializable obj): void
++test(): boolean
++getSocket(): Socket
++receive(): Serializable
++isConnected(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>882</y>
+      <w>234</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>go.communications::Credentials
+--
+-username: String
+-password: String
+--
++Credentials(String username, String password): ctor
++Credentials(String username): ctor
++getUsername(): String
++getPassword(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1188</x>
+      <y>660</y>
+      <w>144</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>go.communications::Message
+--
++content: Serializable
++crc: Checksum
+--
++Message(Serializable content): ctor
++checkCRC(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>816</y>
+      <w>198</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>go.communications::Request
+--
++command: String
++args: String[]
+--
++Request(String request, String... args): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1086</x>
+      <y>1368</y>
+      <w>264</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>go.server.DB::SimpleDBFacade
+--
+~users = new TreeMap(): TreeMap&lt;String, String&gt;
+~games = new TreeMap(): TreeMap&lt;Long, Game&gt;
+--
++register(Credentials credentials): boolean
++login(Credentials credentials): boolean
++saveGame(Game game): boolean
++loadGame(long id): Game
++newGame(String player1, String player2, int size): long
++getGameIds(): ArrayList&lt;Long&gt;
++getUsernames(): ArrayList&lt;String&gt;
+-generateGameId(): long
+-checkPassword(String username, String password): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>174</x>
+      <y>888</y>
+      <w>354</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling::Pairer
+--
+-logger = System.getLogger("Pairer"): System.Logger
+~size: int
+-queue: SynchronousQueue&lt;Player_Game&gt;
++playername: String
++socket: SocketFacade
++handler: GameHandler
+--
++Pairer(int size): ctor
++Player_Game(String playername, SocketFacade socket, GameHandler handler): ctor
++run(): void
++addPlayer(String name, SocketFacade socket): GameHandler
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1194</x>
+      <y>1002</y>
+      <w>456</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling::GameHandler
+--
+~db = go.server.Server.getDB(): DBFacade
+~player1: SocketFacade
+~player2: SocketFacade
+~pl1name: String
+~pl2name: String
+~game: Game
+--
++GameHandler(SocketFacade player1, SocketFacade player2, String pl1name, String pl2name, Integer size): ctor
+-test_sockets(): void
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1116</x>
+      <y>1224</y>
+      <w>240</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+go.server.DB::DBFacade
+--
+--
+~register(Credentials credentials): boolean
+~login(Credentials credentials): boolean
+~saveGame(Game game): boolean
+~newGame(String player1, String player2, int size): long
+~loadGame(long id): Game
+~getGameIds(): ArrayList&lt;Long&gt;
+~getUsernames(): ArrayList&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>924</x>
+      <y>72</y>
+      <w>246</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling::Accepter
+--
+~logger = System.getLogger("Accepter"): System.Logger
+~port: int
+~running = true: boolean
+~serverSocket: ServerSocket
+--
++Accepter(int port): ctor
++stopAccepting(): void
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1380</x>
+      <y>1458</y>
+      <w>234</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>go.server::Server
+--
++logger = System.getLogger("server"): System.Logger
+~pairers = new HashMap(): HashMap&lt;String, Pairer&gt;
+~accepters = new HashMap(): HashMap&lt;Integer, Accepter&gt;
+~db = new SimpleDBFacade(): DBFacade
+--
++main(String[] args): void
++getPairer(String key): Pairer
++getDB(): DBFacade
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1140</x>
+      <y>216</y>
+      <w>180</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling::ClientHandler
+--
+~socket: SocketFacade
+~name: String
+--
++ClientHandler(Socket socket): ctor
++run(): void
++get_socketf(): SocketFacade
++getPlayerName(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1614</x>
+      <y>696</y>
+      <w>180</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling::LoginHandler
+--
+~socket: SocketFacade
+~name: String
+~db = go.server.Server.getDB(): DBFacade
+--
++LoginHandler(SocketFacade socket): ctor
++getName(): String
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>654</x>
+      <y>264</y>
+      <w>306</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling.comandStrategies::CommandStrategyFactoryS
+--
+~commands = new HashMap(): HashMap&lt;String, CommandStrategy&gt;
+--
++CommandStrategyFactoryS(): ctor
++getCommandStrategy(String command): CommandStrategy
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1026</x>
+      <y>780</y>
+      <w>270</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+go.server.ClientHandling.comandStrategies::CommandStrategy
+--
+--
+~apply(ClientHandler clientHandler, String[] args): Void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1572</x>
+      <y>1380</y>
+      <w>186</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling::HistoryHandler
+--
+#db = go.server.Server.getDB(): DBFacade
+--
++run(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1200</x>
+      <y>888</y>
+      <w>228</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling.comandStrategies::History
+--
+--
++apply(ClientHandler clientHandler, String[] args): Void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1014</x>
+      <y>942</y>
+      <w>240</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>go.server.ClientHandling.comandStrategies::PlayGame
+--
+--
++apply(ClientHandler clientHandler, String[] args): Void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1200</x>
+      <y>0</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Thread</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1194</x>
+      <y>1314</y>
+      <w>78</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>40.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1404</x>
+      <y>816</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>BiFunction</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1098</x>
+      <y>816</y>
+      <w>84</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>50.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1182</x>
+      <y>816</y>
+      <w>138</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>210.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>582</y>
+      <w>72</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1290</x>
+      <y>798</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>996</x>
+      <y>324</y>
+      <w>54</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>972</x>
+      <y>312</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>/Application/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>996</x>
+      <y>432</y>
+      <w>360</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;580.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>876</x>
+      <y>432</y>
+      <w>132</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>678</x>
+      <y>738</y>
+      <w>198</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>310.0;10.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1146</x>
+      <y>354</y>
+      <w>288</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;460.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>816</x>
+      <y>390</y>
+      <w>60</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>738</y>
+      <w>204</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;320.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>810</x>
+      <y>1188</y>
+      <w>264</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>go.game::GameStateBuilder
+--
+-size: int
+-board: Colour[][]
+-turn: int
+-player1Captures: int
+-player2Captures: int
+-finished = false: boolean
+-activeplayer: Colour
+--
++GameStateBuilder(GameState gameState): ctor
++setSize(int size): GameStateBuilder
++setBoard(Colour[][] board): GameStateBuilder
++setTurn(int turn): GameStateBuilder
++setPlayer1Captures(int player1Captures): GameStateBuilder
++setPlayer2Captures(int player2Captures): GameStateBuilder
++setFinished(boolean finished): GameStateBuilder
++setActivePlayer(Colour activeplayer): GameStateBuilder
++createGameState(): GameState
+-fastCheckMove(Move move): boolean
+-countBreaths(int x, int y, Colour color): int
+-countBreaths(int x, int y, Colour color, Boolean[][] visited): int
+-countAllBreaths(): int[][]
++MakeMove(Move move, boolean whiteturn): void
+-checkPostMove(Move move): boolean
++performAndCheckMove(Move move, boolean whiteturn): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>1170</y>
+      <w>504</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>go.game::GameState
+--
+~size: int
+~board: Colour[][]
+~turn: int
++finished: boolean
+~player1Captures: int
+~player2Captures: int
+~activeplayer: Colour
+--
++GameState(int size): ctor
++GameState(int size, Colour[][] board, int turn, int player1Captures, int player2Captures, Colour activeplayer): ctor
++GameState(int size, Colour[][] board, int turn, int player1Captures, int player2Captures, boolean finished, Colour activeplayer): ctor
++getSize(): int
++getBoard(): Colour[][]
++getTurn(): int
++getActivePlayer(): Colour
++countBoardScorePlayer(Colour player): int
++countScoreP1(): int
++countScoreP2(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1440</x>
+      <y>1158</y>
+      <w>240</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>go.game::Game
+--
+-id: long
+-size: int
++player1: String
++player2: String
++winner = FinalState.NOT_FINISHED: FinalState
++gameStates: ArrayList&lt;GameState&gt;
+--
++Game(long id, String player1, String player2, int size): ctor
++getSize(): int
++getId(): Long
++addGameState(GameState gameState): void
++getGameState(int index): GameState
++init(): void
++getGameStateCount(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>450</x>
+      <y>792</y>
+      <w>186</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>go.game::Move
+--
++x: int
++y: int
++isPass: boolean
++giveUp: boolean
+--
++Move(boolean isPass, boolean giveUp): ctor
++Move(int x, int y): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>738</y>
+      <w>300</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>480.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1566</x>
+      <y>402</y>
+      <w>78</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1698</x>
+      <y>1140</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Runnable</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1350</x>
+      <y>402</y>
+      <w>186</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>290.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>882</x>
+      <y>396</y>
+      <w>552</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>900.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>678</x>
+      <y>954</y>
+      <w>276</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;440.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>888</x>
+      <y>1110</y>
+      <w>108</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>java.io.Serializable</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1242</x>
+      <y>714</y>
+      <w>174</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;270.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1386</x>
+      <y>750</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Serializable</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>906</x>
+      <y>864</y>
+      <w>96</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1380</x>
+      <y>630</y>
+      <w>84</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>840</y>
+      <w>84</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1230</x>
+      <y>966</y>
+      <w>48</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>522</x>
+      <y>954</y>
+      <w>504</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>820.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>12</y>
+      <w>204</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;100.0;320.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1038</x>
+      <y>156</y>
+      <w>198</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;310.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1224</x>
+      <y>12</y>
+      <w>60</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;340.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1230</x>
+      <y>288</y>
+      <w>132</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;380.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1284</x>
+      <y>288</y>
+      <w>348</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;560.0;680.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>954</x>
+      <y>258</y>
+      <w>198</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>310.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>978</x>
+      <y>288</y>
+      <w>222</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>350.0;10.0;10.0;880.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1194</x>
+      <y>288</y>
+      <w>30</w>
+      <h>504</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30.0;10.0;10.0;820.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1476</x>
+      <y>906</y>
+      <w>72</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;150.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1416</x>
+      <y>1104</y>
+      <w>150</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;230.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1236</x>
+      <y>1104</y>
+      <w>180</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>280.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>846</y>
+      <w>576</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>940.0;300.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1068</x>
+      <y>1104</y>
+      <w>258</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>410.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>768</x>
+      <y>1104</y>
+      <w>606</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>990.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1350</x>
+      <y>1290</y>
+      <w>234</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;370.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1722</x>
+      <y>1152</y>
+      <w>78</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;370.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1704</x>
+      <y>768</y>
+      <w>78</w>
+      <h>384</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;620.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1350</x>
+      <y>768</y>
+      <w>354</w>
+      <h>486</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;790.0;570.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>798</x>
+      <y>726</y>
+      <w>828</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;310.0;1360.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1506</x>
+      <y>540</y>
+      <w>198</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;310.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>522</x>
+      <y>990</y>
+      <w>684</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;1120.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>522</x>
+      <y>630</y>
+      <w>684</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;470.0;1120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>828</y>
+      <w>60</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;100.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>816</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Thread</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1488</x>
+      <y>894</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Thread</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1566</x>
+      <y>462</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Runnable</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1332</x>
+      <y>1314</y>
+      <w>162</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;250.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>618</x>
+      <y>1122</y>
+      <w>294</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;470.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>366</x>
+      <y>1050</y>
+      <w>126</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>go.game.::Colour
+--
+- EMPTY: Colour
+- BLACK: Colour
+- WHITE: Colour </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>426</x>
+      <y>1098</y>
+      <w>36</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>40.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>474</x>
+      <y>540</y>
+      <w>54</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>462</x>
+      <y>630</y>
+      <w>78</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>30.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>492</x>
+      <y>738</y>
+      <w>54</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>408</x>
+      <y>738</y>
+      <w>42</w>
+      <h>324</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;520.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>738</y>
+      <w>96</w>
+      <h>444</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;720.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>732</y>
+      <w>222</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;350.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>486</x>
+      <y>1080</y>
+      <w>336</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>540.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>768</x>
+      <y>1206</y>
+      <w>54</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>822</y>
+      <w>330</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;530.0;480.0</additional_attributes>
+  </element>
+</diagram>
