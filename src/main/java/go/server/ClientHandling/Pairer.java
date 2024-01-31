@@ -25,19 +25,17 @@ public class Pairer extends Thread {
             try {
                 size = this.size;
                 logger.log(System.Logger.Level.INFO, "Waiting for player 1");
-                Player_Game player = queue.take();
-                pl1name = player.playername;
-                p1socket = player.socket;
+                Player_Game player1 = queue.take();
+                pl1name = player1.playername;
+                p1socket = player1.socket;
                 logger.log(System.Logger.Level.INFO, "Waiting for player 2");
-                player = queue.take();
-                pl2name = player.playername;
-                p2socket = player.socket;
-                new GameHandler(p1socket, p2socket, pl1name, pl2name, size).start();
-                pl1name = null;
-                p1socket = null;
-                pl2name = null;
-                p2socket = null;
-                size = null;
+                Player_Game player2 = queue.take();
+                pl2name = player2.playername;
+                p2socket = player2.socket;
+                GameHandler gh = new GameHandler(p1socket, p2socket, pl1name, pl2name, size);
+                gh.start();
+                player1.handler = gh;
+                player2.handler = gh;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
