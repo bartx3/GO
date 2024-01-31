@@ -83,7 +83,7 @@ public class GUI implements UI {
 
 
     @Override
-    public void showWinner(String winner) {
+    public void showWinner(Colour winner) {
         System.out.println("Winner is: " + winner);
     }
 

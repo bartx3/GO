@@ -41,7 +41,7 @@ public interface UI {
 
     Move getMove(GameState gameState);
 
-    void showWinner(String winner);
+    void showWinner(Colour winner);
 
     /**
      * Gets the command from the user. We can treat it as "display main menu"

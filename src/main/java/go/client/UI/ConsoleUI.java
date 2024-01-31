@@ -93,8 +93,18 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public void showWinner(String winner) {
-        System.out.println(winner);
+    public void showWinner(Colour winner) {
+        switch (winner) {
+            case BLACK:
+                System.out.println("Black won");
+                break;
+            case WHITE:
+                System.out.println("White won");
+                break;
+            case EMPTY:
+                System.out.println("Draw");
+                break;
+        }
     }
 
     private void clearscreen()
