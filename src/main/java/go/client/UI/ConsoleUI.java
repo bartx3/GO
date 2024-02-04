@@ -70,6 +70,7 @@ public class ConsoleUI implements UI {
 
     @Override
     public long chooseGame(ArrayList<Long> games) {
+        clearscreen();
         System.out.println("Available games: ");
         for (Long game : games) {
             System.out.println(game);
@@ -134,6 +135,7 @@ public class ConsoleUI implements UI {
 
     @Override
     public void displayGame(Game game) {
+        clearscreen();
         System.out.println("n for next move, p for previous move, m for main menu");
         System.out.println("Game id: " + game.getId());
         System.out.println("Player 1 (Black) : " + game.player1);

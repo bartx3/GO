@@ -57,7 +57,7 @@ public class GameHandler extends Thread {
                 do {
                     Move move = (Move) player1.receive();
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
-                    validmove = gameStateBuilder.performAndCheckMove(move, false);
+                    validmove = gameStateBuilder.performAndCheckMove(move, false) &&  (!is_in_game(gameStateBuilder.createGameState(), game) || move.giveUp || move.isPass);
                     if (!validmove) {
                         logger.log(System.Logger.Level.INFO, "Invalid move");
                         player1.send(gameState);
@@ -79,7 +79,7 @@ public class GameHandler extends Thread {
                 do {
                     Move move = (Move) player2.receive();
                     GameStateBuilder gameStateBuilder = new GameStateBuilder(gameState);
-                    validmove = gameStateBuilder.performAndCheckMove(move, true);
+                    validmove = gameStateBuilder.performAndCheckMove(move, true) && (!is_in_game(gameStateBuilder.createGameState(), game) || move.giveUp || move.isPass);
                     if (!validmove) {
                         logger.log(System.Logger.Level.INFO, "Invalid move");
                         player2.send(gameState);
@@ -117,6 +117,31 @@ public class GameHandler extends Thread {
         game.addGameState(gameState);
         db.saveGame(game);
         logger.log(System.Logger.Level.INFO, "Saved game " + game.getId() + " to database");
+    }
+
+    boolean is_in_game(GameState gs, Game game)
+    {
+        for (GameState g : game.gameStates)
+        {
+            if (identical_gamestates(gs, g))
+                return true;
+        }
+        return false;
+    }
+
+    boolean identical_gamestates(GameState gs1, GameState gs2)
+    {
+        if (gs1.getSize() != gs2.getSize())
+            return false;
+        for (int i = 0; i < gs1.getSize(); i++)
+        {
+            for (int j = 0; j < gs1.getSize(); j++)
+            {
+                if (!gs1.getBoard()[i][j].equals( gs2.getBoard()[i][j]))
+                    return false;
+            }
+        }
+        return true;
     }
 }
 

@@ -26,7 +26,7 @@ public class MongoDBFacade implements DBFacade {
     private MongoDatabase database;
 
     public MongoDBFacade() {
-        String connectionString = "mongodb+srv://student:1234@mydb1.ewqpyk0.mongodb.net/?retryWrites=true&w=majority";  // Wiem, że niebezpieczne
+        String connectionString =" <connection link to mongodb>" //removed for security reasons. The old one was invalidated because of the leak
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
