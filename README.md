@@ -7,6 +7,7 @@ Prosta gra w GO
   Przy uruchamianiu klienta, ten łączy się z serwerem i jeśli się mu uda, prosi o login i hasło. Jeśli login i hasło zgadzają się z jakimiś na serwerze bądź wpisze się zupełnie nowy login, serwer zaakceptuje gracza i przechodzimy do głównego menu.
 ## Główne menu
   W głównym menu należy wybrać, czy chce się grać czy chce się przeglądnąć historię.
+  
   komenda “play” – gramy w nową grę; wielkość planszy podajemy w tej samej linijce po spacji np. Play 19 zbuduje nam planszę 19x19. Dostępne rozmiary to 9, 13 i 19
   komenda „history” – odtwarzamy grę z bazy danych
 ## Gra
